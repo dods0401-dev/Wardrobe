@@ -242,6 +242,12 @@ export interface StylistSession {
   request: StylistRequest;
   outfitIds: string[];
   createdAt: string;
-  /** How many times the user regenerated with the same request — used as deterministic offset. */
+  /** How many times the user regenerated with the same request. */
   iteration: number;
+  /** Every outfit signature shown in this session — regenerate never repeats them. */
+  shownSignatures: string[];
+  /** What the (mock) brief parser understood, shown back to the user. */
+  understood: string[];
+  shortfall?: string;
+  evaluated: number;
 }
