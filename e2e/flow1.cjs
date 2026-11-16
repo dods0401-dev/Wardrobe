@@ -1,0 +1,33 @@
+const { chromium } = require("playwright");
+const SP = process.argv[2];
+(async () => {
+  const b = await chromium.launch();
+  const page = await b.newPage({ viewport: { width: 1440, height: 900 } });
+  const errors = [];
+  page.on("pageerror", (e) => errors.push(e.message));
+  page.on("console", (m) => m.type() === "error" && errors.push(m.text()));
+  await page.goto("http://localhost:3000/stylist", { waitUntil: "networkidle" });
+  await page.screenshot({ path: SP + "/stylist.png" });
+  await page.getByRole("radio", { name: /Streetwear/ }).click();
+  await page.fill("#brief", "no loafers, relaxed");
+  await page.getByRole("button", { name: /Generate 4 outfits/ }).click();
+  await page.waitForURL(/results/, { timeout: 10000 });
+  await page.waitForTimeout(800);
+  await page.screenshot({ path: SP + "/results.png" });
+  const cards = await page.locator("article").count();
+  // open swap on first card
+  await page.locator("article").first().getByRole("button", { name: /Replace/ }).first().click();
+  await page.waitForTimeout(400);
+  await page.screenshot({ path: SP + "/replace.png" });
+  await page.getByRole("dialog").locator("ul li button").first().click();
+  await page.waitForTimeout(300);
+  await page.locator("article").first().getByRole("link", { name: /Open outfit detail/ }).click();
+  await page.waitForURL(/outfits/);
+  await page.waitForTimeout(600);
+  await page.screenshot({ path: SP + "/detail.png", fullPage: true });
+  await page.getByRole("radio", { name: /AI look/ }).click();
+  await page.waitForTimeout(400);
+  await page.screenshot({ path: SP + "/detail-ai.png" });
+  console.log(JSON.stringify({ cards, errors }));
+  await b.close();
+})();

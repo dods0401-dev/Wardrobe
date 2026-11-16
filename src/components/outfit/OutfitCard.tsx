@@ -44,7 +44,7 @@ export function OutfitResultCard({ outfit, rank }: { outfit: Outfit; rank: numbe
         <Link href={`/outfits/${outfit.id}`} aria-label={`Open ${outfit.name}`} className="block overflow-hidden rounded-sm">
           <OutfitVisual outfit={outfit} pieces={pieces} highlight={hover} />
         </Link>
-        <div className="absolute left-3 top-3 flex gap-1.5">
+        <div className="pointer-events-none absolute bottom-3 left-3 flex gap-1.5">
           <span className="display flex size-8 items-center justify-center rounded-xs bg-accent text-sm text-white">
             {String(rank).padStart(2, "0")}
           </span>
@@ -57,7 +57,7 @@ export function OutfitResultCard({ outfit, rank }: { outfit: Outfit; rank: numbe
       <div className="flex min-w-0 flex-col">
         <div className="flex flex-wrap items-center gap-1.5">
           <Badge tone="outline">{occasionLabel(outfit.occasion)}</Badge>
-          <Badge tone="sage">{styleLabel(outfit.style)}</Badge>
+          {styleLabel(outfit.style) !== occasionLabel(outfit.occasion) && <Badge tone="sage">{styleLabel(outfit.style)}</Badge>}
           {outfit.saved && <Badge tone="ink">Saved</Badge>}
         </div>
         <h3 className="display mt-3 text-3xl leading-none sm:text-4xl">{outfit.name}</h3>
