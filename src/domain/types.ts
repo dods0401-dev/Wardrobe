@@ -232,6 +232,8 @@ export interface StylistRequest {
   instructions: string;
   preferredColors: ColorId[];
   excludedItemIds: string[];
+  /** Optional anchor pieces every look must include ("style this piece"). */
+  anchorItemIds?: string[];
   count: number; // 3..5
   season: Season;
   includeAccessory: boolean;
