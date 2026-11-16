@@ -154,10 +154,10 @@ export function OutfitResultCard({ outfit, rank }: { outfit: Outfit; rank: numbe
 }
 
 /** Compact tile used on Home and in the Lookbook grid. */
-export function OutfitTile({ outfit, meta, className }: { outfit: Outfit; meta?: string; className?: string }) {
+export function OutfitTile({ outfit, meta, className, static: isStatic }: { outfit: Outfit; meta?: string; className?: string; static?: boolean }) {
   const { pieces } = useOutfitPieces(outfit);
-  return (
-    <Link href={`/outfits/${outfit.id}`} className={cn("group block", className)}>
+  const content = (
+    <>
       <div className="relative overflow-hidden rounded-sm">
         <OutfitVisual outfit={outfit} pieces={pieces} showMarkers={false} className="transition-transform duration-500 group-hover:scale-[1.02]" />
         <div className="absolute right-2 top-2 flex gap-1">
@@ -178,6 +178,13 @@ export function OutfitTile({ outfit, meta, className }: { outfit: Outfit; meta?:
         <span className="label shrink-0 tabular-nums text-ink-3">{Math.round(outfit.score)}</span>
       </div>
       <p className="label mt-0.5 truncate text-ink-3">{meta ?? `${occasionLabel(outfit.occasion)} · ${pieces.length} pieces`}</p>
+    </>
+  );
+  return isStatic ? (
+    <div className={cn("group block", className)}>{content}</div>
+  ) : (
+    <Link href={`/outfits/${outfit.id}`} className={cn("group block", className)}>
+      {content}
     </Link>
   );
 }
