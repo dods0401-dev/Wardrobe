@@ -38,7 +38,7 @@ export function VisualModeSwitch({ className, size = "md" }: { className?: strin
   const mode = useWardrobe((s) => s.visualMode);
   const setMode = useWardrobe((s) => s.setVisualMode);
   return (
-    <div role="radiogroup" aria-label="Visualisation mode" className={cn("inline-flex rounded-full bg-paper-2 p-1", className)}>
+    <div role="radiogroup" aria-label="Visualisation mode" className={cn("inline-flex rounded-full bg-ink/[0.05] p-1 shadow-[inset_0_1px_2px_rgba(43,42,40,0.06)]", className)}>
       {(
         [
           ["collage", "My pieces"],
@@ -54,7 +54,7 @@ export function VisualModeSwitch({ className, size = "md" }: { className?: strin
           className={cn(
             "rounded-full text-[13px] font-medium transition-colors whitespace-nowrap",
             size === "sm" ? "h-7 px-3" : "h-8 px-3.5",
-            mode === v ? "bg-surface text-ink shadow-[var(--shadow-soft)]" : "text-ink-3 hover:text-ink",
+            mode === v ? "bg-white text-ink shadow-[var(--shadow-soft)]" : "text-ink-3 hover:text-ink",
           )}
         >
           {label}

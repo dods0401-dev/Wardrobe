@@ -520,15 +520,28 @@ export function GarmentArt({ shape, main, secondary = [], pattern = "solid", cla
           <path d={art.body} />
         </clipPath>
         <linearGradient id={`l${uid}`} x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#ffffff" stopOpacity={0.22} />
-          <stop offset="55%" stopColor="#ffffff" stopOpacity={0} />
-          <stop offset="100%" stopColor="#000000" stopOpacity={0.16} />
+          <stop offset="0%" stopColor="#ffffff" stopOpacity={dark ? 0.16 : 0.3} />
+          <stop offset="45%" stopColor="#ffffff" stopOpacity={0} />
+          <stop offset="100%" stopColor="#000000" stopOpacity={dark ? 0.25 : 0.14} />
         </linearGradient>
+        {/* Fabric sheen + ambient occlusion */}
+        <radialGradient id={`h${uid}`} cx="34%" cy="22%" r="55%">
+          <stop offset="0%" stopColor="#ffffff" stopOpacity={dark ? 0.18 : 0.42} />
+          <stop offset="100%" stopColor="#ffffff" stopOpacity={0} />
+        </radialGradient>
+        <linearGradient id={`a${uid}`} x1="0" y1="0" x2="0" y2="1">
+          <stop offset="70%" stopColor="#000000" stopOpacity={0} />
+          <stop offset="100%" stopColor="#000000" stopOpacity={0.12} />
+        </linearGradient>
+        <radialGradient id={`s${uid}`} cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stopColor="#2b2a28" stopOpacity={0.22} />
+          <stop offset="100%" stopColor="#2b2a28" stopOpacity={0} />
+        </radialGradient>
         {showPattern && !isGraphic && <PatternFill pattern={pattern} p={p} id={`p${uid}`} />}
       </defs>
       <g transform={flip ? `translate(${w} 0) scale(-1 1)` : undefined}>
-      {shadow && <ellipse cx={w / 2} cy={h - 4} rx={w * 0.36} ry={4} fill="#000" opacity={0.08} />}
-      <path d={art.body} fill={p.main} stroke={p.line} strokeWidth="1.2" strokeLinejoin="round" />
+      {shadow && <ellipse cx={w / 2} cy={h - 4} rx={w * 0.4} ry={7} fill={`url(#s${uid})`} />}
+      <path d={art.body} fill={p.main} stroke={p.line} strokeOpacity={0.55} strokeWidth="0.9" strokeLinejoin="round" />
       <g clipPath={`url(#c${uid})`}>
         {showPattern && !isGraphic && <rect width={w} height={h} fill={`url(#p${uid})`} />}
         {isGraphic && (
@@ -540,9 +553,11 @@ export function GarmentArt({ shape, main, secondary = [], pattern = "solid", cla
           </g>
         )}
         <rect width={w} height={h} fill={`url(#l${uid})`} />
+        <rect width={w} height={h} fill={`url(#h${uid})`} />
+        <rect width={w} height={h} fill={`url(#a${uid})`} />
       </g>
       {art.parts?.(p)}
-      {art.lines && <path d={art.lines} fill="none" stroke={p.line} strokeWidth="1.1" strokeLinecap="round" opacity={0.75} />}
+      {art.lines && <path d={art.lines} fill="none" stroke={p.line} strokeWidth="0.9" strokeLinecap="round" opacity={0.5} />}
       </g>
     </svg>
   );

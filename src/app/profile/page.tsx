@@ -234,7 +234,7 @@ export default function ProfilePage() {
       </div>
 
       {dirty && (
-        <div className="fixed inset-x-0 bottom-[calc(4rem+env(safe-area-inset-bottom))] z-30 border-t border-line bg-paper/90 backdrop-blur animate-sheet-up lg:bottom-0 lg:left-[15.5rem]">
+        <div className="fixed inset-x-0 bottom-[calc(4rem+env(safe-area-inset-bottom))] z-30 border-t border-white glass animate-sheet-up lg:bottom-0 lg:left-[15.5rem]">
           <div className="mx-auto flex max-w-[1200px] items-center justify-end gap-2 px-4 py-3 sm:px-8 lg:px-12">
             <span className="mr-auto text-sm text-ink-2">Unsaved changes</span>
             <Button variant="ghost" onClick={() => setDraft(profile)}>

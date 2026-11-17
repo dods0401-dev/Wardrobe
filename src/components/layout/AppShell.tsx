@@ -42,7 +42,7 @@ export function AppShell({ children }: { children: ReactNode }) {
   return (
     <div className="min-h-dvh lg:grid lg:grid-cols-[15.5rem_1fr]">
       {/* Desktop sidebar */}
-      <aside className="hidden lg:flex sticky top-0 h-dvh flex-col justify-between border-r border-line bg-surface px-5 py-7">
+      <aside className="hidden lg:flex sticky top-0 h-dvh flex-col justify-between border-r border-white/80 bg-white/55 px-5 py-7 backdrop-blur-xl">
         <div>
           <Link href="/" aria-label="Home">
             <Wordmark className="text-[1.35rem]" />
@@ -58,7 +58,7 @@ export function AppShell({ children }: { children: ReactNode }) {
                   aria-current={active ? "page" : undefined}
                   className={cn(
                     "group flex items-center gap-3 rounded-full px-3.5 py-2.5 text-[15px] font-medium transition-colors",
-                    active ? "bg-accent-soft text-accent-ink" : "text-ink-2 hover:bg-paper hover:text-ink",
+                    active ? "gloss-accent text-white" : "text-ink-2 hover:bg-white hover:text-ink hover:shadow-[var(--shadow-soft)]",
                   )}
                 >
                   <item.icon className="size-[18px]" strokeWidth={active ? 2.1 : 1.7} />
@@ -91,7 +91,7 @@ export function AppShell({ children }: { children: ReactNode }) {
       </aside>
 
       {/* Mobile top bar */}
-      <header className="lg:hidden sticky top-0 z-30 flex h-14 items-center justify-between border-b border-line bg-paper/90 px-4 backdrop-blur">
+      <header className="lg:hidden sticky top-0 z-30 flex h-14 items-center justify-between border-b border-white/70 glass px-4">
         <Link href="/" aria-label="Home">
           <Wordmark className="text-lg" compact />
         </Link>
@@ -120,7 +120,7 @@ export function AppShell({ children }: { children: ReactNode }) {
       {/* Mobile bottom nav */}
       <nav
         aria-label="Main"
-        className="lg:hidden fixed inset-x-0 bottom-0 z-40 grid grid-cols-5 rounded-t-[22px] border-t border-line bg-surface pb-[env(safe-area-inset-bottom)] shadow-[0_-6px_24px_-12px_rgba(43,42,40,0.18)]"
+        className="lg:hidden fixed inset-x-0 bottom-0 z-40 grid grid-cols-5 rounded-t-[22px] border-t border-white glass pb-[env(safe-area-inset-bottom)] shadow-[0_-8px_30px_-14px_rgba(43,42,40,0.25)]"
       >
         {NAV.filter((n) => n.href !== "/stats").map((item) => {
           const active = isActive(path, item.href);
@@ -136,8 +136,8 @@ export function AppShell({ children }: { children: ReactNode }) {
               <span
                 className={cn(
                   "flex items-center justify-center rounded-full transition-colors",
-                  stylist ? "size-9 -mt-1 bg-accent text-white" : "size-6",
-                  stylist && active && "bg-accent-ink",
+                  stylist ? "size-10 -mt-2 gloss-accent text-white" : "size-6",
+                  stylist && active && "ring-4 ring-accent/15",
                 )}
               >
                 <Icon className={stylist ? "size-[18px]" : "size-5"} strokeWidth={active ? 2.25 : 1.75} />

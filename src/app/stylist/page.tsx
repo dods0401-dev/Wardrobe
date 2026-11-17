@@ -268,7 +268,7 @@ function StylistForm() {
       </div>
 
       {/* Sticky generate bar */}
-      <div className="fixed inset-x-0 bottom-[calc(4rem+env(safe-area-inset-bottom))] z-30 border-t border-line bg-paper/90 backdrop-blur lg:bottom-0 lg:left-[15.5rem]">
+      <div className="fixed inset-x-0 bottom-[calc(4rem+env(safe-area-inset-bottom))] z-30 border-t border-white glass lg:bottom-0 lg:left-[15.5rem]">
         <div className="mx-auto flex max-w-[1200px] items-center gap-4 px-4 py-3 sm:px-8 lg:px-12">
           <p className="hidden min-w-0 flex-1 truncate text-sm text-ink-2 sm:block">
             <strong>{occasionLabel(req.occasion)}</strong> · {seasonLabel(req.season)}

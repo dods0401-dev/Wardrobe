@@ -80,7 +80,7 @@ export function Segmented<T extends string>({
   ariaLabel: string;
 }) {
   return (
-    <div role="tablist" aria-label={ariaLabel} className={cn("inline-flex rounded-full bg-paper-2 p-1", className)}>
+    <div role="tablist" aria-label={ariaLabel} className={cn("inline-flex rounded-full bg-ink/[0.05] p-1 shadow-[inset_0_1px_2px_rgba(43,42,40,0.06)]", className)}>
       {options.map((o) => (
         <button
           key={o.value}
@@ -91,7 +91,7 @@ export function Segmented<T extends string>({
           className={cn(
             "inline-flex items-center gap-1.5 rounded-full text-sm font-medium transition-colors whitespace-nowrap",
             size === "sm" ? "h-7 px-3" : "h-8 px-4",
-            value === o.value ? "bg-surface text-ink shadow-[var(--shadow-soft)]" : "text-ink-3 hover:text-ink",
+            value === o.value ? "bg-white text-ink shadow-[var(--shadow-soft)]" : "text-ink-3 hover:text-ink",
           )}
         >
           {o.label}

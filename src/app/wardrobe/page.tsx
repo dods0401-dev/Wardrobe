@@ -40,8 +40,8 @@ function CategoryBubble({ label, count, selected, onClick, icon }: { label: stri
     <button type="button" onClick={onClick} aria-pressed={selected} aria-label={`${label} (${count})`} className="group flex w-[4.5rem] shrink-0 flex-col items-center gap-1.5">
       <span
         className={cn(
-          "flex size-14 items-center justify-center rounded-full bg-surface p-2.5 shadow-[var(--shadow-soft)] transition",
-          selected ? "ring-2 ring-ink" : "group-hover:-translate-y-0.5",
+          "flex size-14 items-center justify-center rounded-full bg-white p-2.5 text-ink-2 shadow-[var(--shadow-soft)] transition",
+          selected ? "gloss-accent text-white ring-4 ring-accent/15" : "group-hover:-translate-y-0.5 group-hover:shadow-[var(--shadow-lift)]",
         )}
       >
         {icon}
@@ -143,15 +143,17 @@ function WardrobeView() {
             <Button variant="secondary" icon={<Upload className="size-4" />} onClick={() => setBulkOpen(true)}>
               Bulk upload
             </Button>
-            <Button icon={<Plus className="size-4" />} onClick={() => setAddOpen(true)} className="hidden lg:inline-flex">
-              Add item
-            </Button>
+            <span className="hidden lg:inline-flex">
+              <Button icon={<Plus className="size-4" />} onClick={() => setAddOpen(true)}>
+                Add item
+              </Button>
+            </span>
           </>
         }
       />
 
       {/* Toolbar */}
-      <div className="sticky top-14 z-20 -mx-4 mt-4 bg-paper/95 px-4 pb-3 pt-3 backdrop-blur sm:-mx-8 sm:px-8 lg:top-0 lg:-mx-12 lg:px-12">
+      <div className="sticky top-14 z-20 -mx-4 mt-4 bg-paper/70 px-4 pb-3 pt-3 backdrop-blur-xl sm:-mx-8 sm:px-8 lg:top-0 lg:-mx-12 lg:px-12">
         <div className="flex gap-2">
           <div className="flex-1">
             <Input
@@ -183,7 +185,7 @@ function WardrobeView() {
           </div>
         </div>
         <div className="no-scrollbar -mx-4 mt-4 flex gap-2 overflow-x-auto px-4 pb-1 sm:mx-0 sm:px-0" role="group" aria-label="Category">
-          <CategoryBubble label="All" count={items.length} selected={!f.categories.length} onClick={() => setF({ ...f, categories: [] })} icon={<LayoutGrid className="size-5 text-ink-2" strokeWidth={1.6} />} />
+          <CategoryBubble label="All" count={items.length} selected={!f.categories.length} onClick={() => setF({ ...f, categories: [] })} icon={<LayoutGrid className="size-5" strokeWidth={1.6} />} />
           {CATEGORIES.map((c) => (
             <CategoryBubble
               key={c.id}
@@ -227,7 +229,7 @@ function WardrobeView() {
             return (
               <li key={item.id} className="animate-fade-up" style={{ animationDelay: `${Math.min(idx, 12) * 25}ms` }}>
                 <Link href={`/wardrobe/${item.id}`} className="group block">
-                  <div className="relative aspect-[4/5] overflow-hidden rounded-lg bg-surface shadow-[var(--shadow-soft)] transition duration-300 group-hover:-translate-y-0.5 group-hover:shadow-md">
+                  <div className="relative aspect-[4/5] overflow-hidden rounded-lg bg-surface shadow-[var(--shadow-soft)] transition duration-300 group-hover:-translate-y-0.5 group-hover:shadow-[var(--shadow-lift)]">
                     <ItemImage item={item} fit="contain" className={cn("p-3", item.availability !== "available" && "opacity-55")} />
                     <div className="absolute left-2 top-2 flex flex-wrap gap-1">
                       {item.availability !== "available" && <Badge tone="ink">{availabilityLabel(item.availability)}</Badge>}
@@ -281,7 +283,7 @@ function WardrobeView() {
         type="button"
         onClick={() => setAddOpen(true)}
         aria-label="Add item"
-        className="fixed bottom-[calc(5.25rem+env(safe-area-inset-bottom))] right-4 z-30 flex size-14 items-center justify-center rounded-full bg-accent text-white shadow-lg transition active:scale-95 lg:hidden"
+        className="fixed bottom-[calc(5.25rem+env(safe-area-inset-bottom))] right-4 z-30 flex size-14 items-center justify-center rounded-full gloss-accent text-white transition active:scale-95 lg:hidden"
       >
         <Plus className="size-6" />
       </button>

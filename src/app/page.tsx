@@ -123,7 +123,7 @@ export default function HomePage() {
             <span>{seasonLabel(season)}</span>
           </p>
           <h1 className="display mt-2 text-[2rem] leading-[1.08] sm:text-display lg:text-display-lg">
-            {greeting()}, {profile.name}
+            <span className="font-light text-ink-3">{greeting()},</span> <span className="text-gradient">{profile.name}</span>
           </h1>
         </div>
         <p className="max-w-xs text-sm leading-relaxed text-ink-3 sm:text-right">
@@ -201,14 +201,14 @@ export default function HomePage() {
           {/* Main CTA */}
           <Link
             href="/stylist"
-            className="group relative flex items-center justify-between gap-4 overflow-hidden rounded-lg bg-accent-soft p-6 text-ink sm:p-7"
+            className="group relative flex items-center justify-between gap-4 overflow-hidden rounded-lg bg-[linear-gradient(135deg,#e6f1ea_0%,#d3e6da_45%,#f1e6dc_100%)] p-6 text-ink shadow-[var(--shadow-soft)] transition hover:shadow-[var(--shadow-lift)] sm:p-7"
           >
             <div>
               <p className="label text-accent-ink">Stylist</p>
               <p className="display mt-1 text-2xl leading-tight sm:text-[1.75rem]">Build an outfit</p>
               <p className="mt-2 max-w-xs text-sm text-ink-3">Pick an occasion, add a brief — get looks made only from pieces you own.</p>
             </div>
-            <span className="flex size-12 shrink-0 items-center justify-center rounded-full bg-accent text-white transition-transform duration-300 group-hover:translate-x-1">
+            <span className="flex size-12 shrink-0 items-center justify-center rounded-full gloss-accent text-white transition-transform duration-300 group-hover:translate-x-1">
               <ArrowRight className="size-5" />
             </span>
           </Link>
@@ -240,7 +240,7 @@ export default function HomePage() {
             const sample = catItems[0];
             return (
               <Link key={c.id} href={`/wardrobe?category=${c.id}`} className="group w-32 shrink-0 sm:w-auto">
-                <div className="aspect-square overflow-hidden rounded-lg bg-surface shadow-[var(--shadow-soft)] transition group-hover:-translate-y-0.5">
+                <div className="aspect-square overflow-hidden rounded-lg bg-surface shadow-[var(--shadow-soft)] transition group-hover:-translate-y-0.5 group-hover:shadow-[var(--shadow-lift)]">
                   {sample ? <ItemImage item={sample} /> : <div className="studio h-full w-full" />}
                 </div>
                 <p className="mt-2 text-[13px] font-semibold leading-tight">{c.plural}</p>
@@ -285,7 +285,7 @@ export default function HomePage() {
             >
               <div className="flex items-start justify-between">
                 <span className="label opacity-70">Mood</span>
-                <ArrowUpRight className="size-5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                <ArrowUpRight className="size-5 transition-transform group-hover:-translate-y-0.5 group-hover:shadow-[var(--shadow-lift)] group-hover:translate-x-0.5" />
               </div>
               <div>
                 <h3 className="display text-2xl leading-tight">{p.title}</h3>

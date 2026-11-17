@@ -16,11 +16,15 @@
   --color-stone: #e3dfd7;
   --color-stone-2: #d6d1c7;
   /* Primary accent: muted sage */
-  --color-accent: #6f8c7b;
-  --color-accent-ink: #5a7566;
-  --color-accent-soft: #e4ebe5;
-  --color-sage: #dbe4d9;
-  --color-sage-ink: #4d6656;
+  --color-accent: #4f8a6c;
+  --color-accent-2: #7fb08f;
+  --color-accent-ink: #3c6e55;
+  --color-accent-soft: #e2eee6;
+  --color-sage: #d9e8dd;
+  --color-sage-ink: #3f6650;
+  /* Warm secondary tint */
+  --color-blush: #f3e4dc;
+  --color-sand: #efe6d8;
   /* Reserved for errors & destructive actions */
   --color-danger: #c0583f;
   --color-danger-soft: #f7e7e2;
@@ -46,7 +50,9 @@
   --radius-md: 14px;
   --radius-lg: 20px;
 
-  --shadow-soft: 0 1px 2px rgba(43, 42, 40, 0.04), 0 4px 16px -6px rgba(43, 42, 40, 0.08);
+  --shadow-soft: inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 1px 2px rgba(43, 42, 40, 0.04), 0 8px 24px -12px rgba(43, 42, 40, 0.14);
+  --shadow-lift: inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 2px 4px rgba(43, 42, 40, 0.05), 0 18px 40px -18px rgba(43, 42, 40, 0.28);
+  --shadow-accent: 0 1px 0 rgba(255, 255, 255, 0.25) inset, 0 8px 20px -8px rgba(79, 138, 108, 0.55);
 
   /* Motion */
   --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
@@ -79,7 +85,11 @@
     text-rendering: optimizeLegibility;
   }
   body {
-    background: var(--color-paper);
+    background:
+      radial-gradient(60rem 40rem at 100% -10%, rgba(127, 176, 143, 0.16), transparent 60%),
+      radial-gradient(50rem 36rem at -10% 110%, rgba(232, 200, 180, 0.22), transparent 60%),
+      var(--color-paper);
+    background-attachment: fixed;
     color: var(--color-ink);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;
@@ -118,7 +128,32 @@
   }
   /* Studio backdrop for product cutouts */
   .studio {
+    background: radial-gradient(120% 100% at 50% 20%, #ffffff 0%, #ffffff 55%, #f6f3ee 100%);
+  }
+  /* Frosted glass surface for bars and floating chrome */
+  .glass {
+    background: rgba(255, 255, 255, 0.72);
+    backdrop-filter: saturate(160%) blur(18px);
+    -webkit-backdrop-filter: saturate(160%) blur(18px);
+  }
+  /* Glossy accent fill */
+  .gloss-accent {
+    background: linear-gradient(180deg, var(--color-accent-2) -40%, var(--color-accent) 60%, var(--color-accent-ink) 140%);
+    box-shadow: var(--shadow-accent);
+  }
+  .gloss-ink {
+    background: linear-gradient(180deg, #4a4844 -30%, #2b2a28 60%, #1f1e1c 140%);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.12) inset, 0 8px 18px -10px rgba(20, 20, 20, 0.6);
+  }
+  .surface {
     background: #ffffff;
+    box-shadow: var(--shadow-soft);
+  }
+  .text-gradient {
+    background: linear-gradient(100deg, var(--color-accent-ink), var(--color-accent-2));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
   }
   .grain {
     position: relative;

@@ -12,9 +12,9 @@ const base =
   "inline-flex items-center justify-center gap-2 font-sans font-medium transition-[background,color,border-color,box-shadow,transform] duration-150 active:scale-[0.98] disabled:opacity-45 disabled:active:scale-100 select-none whitespace-nowrap rounded-full";
 
 const variants: Record<ButtonVariant, string> = {
-  primary: "bg-ink text-white hover:bg-ink-2",
-  accent: "bg-accent text-white hover:bg-accent-ink",
-  secondary: "bg-surface border border-stone-2 text-ink hover:border-ink-3 shadow-[var(--shadow-soft)]",
+  primary: "gloss-ink text-white hover:brightness-110",
+  accent: "gloss-accent text-white hover:brightness-105",
+  secondary: "bg-white/90 border border-white text-ink shadow-[var(--shadow-soft)] hover:shadow-[var(--shadow-lift)] hover:bg-white",
   ghost: "text-ink-2 hover:bg-ink/5 hover:text-ink",
   inverse: "bg-white text-ink hover:bg-paper",
   danger: "border border-danger/50 text-danger hover:bg-danger hover:text-white",

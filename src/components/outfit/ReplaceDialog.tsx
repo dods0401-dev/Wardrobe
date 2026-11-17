@@ -134,7 +134,7 @@ export function ReplaceDialog({
                 }}
                 className="group block w-full text-left"
               >
-                <div className="relative aspect-square overflow-hidden rounded-md bg-surface shadow-[var(--shadow-soft)] transition group-hover:-translate-y-0.5">
+                <div className="relative aspect-square overflow-hidden rounded-md bg-surface shadow-[var(--shadow-soft)] transition group-hover:-translate-y-0.5 group-hover:shadow-[var(--shadow-lift)]">
                   <ItemImage item={alt.item} />
                   <span
                     className={cn(

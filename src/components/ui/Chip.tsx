@@ -22,7 +22,7 @@ export function Chip({
       className={cn(
         "inline-flex items-center gap-1.5 border rounded-full font-medium transition-colors duration-150 whitespace-nowrap",
         size === "sm" ? "h-8 px-3 text-[13px]" : "h-9 px-3.5 text-sm",
-        selected ? "bg-ink text-white border-ink" : "bg-surface text-ink-2 border-line hover:border-stone-2 hover:text-ink",
+        selected ? "gloss-ink text-white border-transparent" : "bg-white/80 text-ink-2 border-white shadow-[var(--shadow-soft)] hover:bg-white hover:text-ink",
         className,
       )}
       {...rest}

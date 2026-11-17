@@ -105,7 +105,7 @@ export default function StatsPage() {
         eyebrow="Style Stats"
         title={
           <>
-            You wear <span className="text-accent">{Math.round(stats.utilization * 100)}%</span> of your wardrobe
+            You wear <span className="text-gradient">{Math.round(stats.utilization * 100)}%</span> of your wardrobe
           </>
         }
         intro={`${stats.itemsWorn90} of ${stats.totalItems} pieces have been worn in the last 90 days. Everything here updates as you log outfits.`}
