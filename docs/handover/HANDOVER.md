@@ -8,8 +8,8 @@ Stato al **17 novembre 2026** (aggiornato dopo l'unione della PR #1 in `main`). 
 
 | Cosa | Dove |
 |---|---|
-| Codice | GitHub `dods0401-dev/Wardrobe`. Il prototipo completo è su **`main`** (PR #1). Ramo di lavoro: **`claude/hopeful-gauss-xze77g`** |
-| Controlli automatici (CI) | `.github/workflows/ci.yml`: lint, test, build e 47 controlli end-to-end a ogni push e pull request |
+| Codice | GitHub `dods0401-dev/Wardrobe`. Il prototipo completo è su **`main`** (PR #1). Ogni nuovo lavoro parte da `main` su un ramo nuovo; il vecchio ramo `claude/hopeful-gauss-xze77g` non si usa più |
+| Controlli automatici (CI) | `.github/workflows/ci.yml`: lint, test, build e 47 controlli end-to-end a ogni pull request e a ogni push su `main` |
 | Istruzioni automatiche per Claude | `CLAUDE.md` nella radice del repository |
 | Documentazione tecnica | `README.md`: setup, architettura, motore, funzioni simulate, limiti, crediti foto |
 | Schermate iPad | `docs/screenshots/ipad/` |
@@ -24,7 +24,7 @@ Tutto il lavoro è salvato su GitHub. La sessione attuale si può chiudere senza
 
 ### A. Nuova sessione Claude Code sullo stesso repository (consigliato)
 1. Su claude.ai/code apri una **nuova sessione**.
-2. Seleziona il repository `dods0401-dev/Wardrobe` e il ramo `main` (Claude passa poi al ramo di lavoro `claude/hopeful-gauss-xze77g`).
+2. Seleziona il repository `dods0401-dev/Wardrobe` e il ramo `main` (Claude crea da lì un ramo nuovo per il lavoro).
 3. Scegli l'ambiente **"Wardrobe"**: ha già l'accesso a Unsplash.
 4. Incolla il prompt di `docs/handover/PROMPT-RIPRESA.md`.
 
@@ -92,14 +92,13 @@ A differenza della pagina claude.ai, qui si vedono anche le foto Unsplash.
 
 ## 5. Cose aperte / prossimi passi
 
-1. **Portare su `main` l'aggiornamento di documenti e CI** con una pull request dal ramo di lavoro.
-2. **Foto per i 15 capi rimasti.** Su Unsplash ci sono quasi solo foto ambientate per cappotto, piumino, blazer, cargo, joggers, pantaloni grigi, pantaloncini chino e nylon, canotta, maglia a righe, longsleeve, overshirt in velluto, cappellino e berretto. Si possono provare altre parole chiave, oppure caricare foto proprie.
-3. **Chiave Unsplash.** Non è nel repository. È stata incollata in chat: rigenerala su unsplash.com/oauth/applications prima di andare in produzione. Per i prossimi lavori aggiungila come segreto di rete dell'ambiente "Wardrobe":
+1. **Foto per i 15 capi rimasti.** Su Unsplash ci sono quasi solo foto ambientate per cappotto, piumino, blazer, cargo, joggers, pantaloni grigi, pantaloncini chino e nylon, canotta, maglia a righe, longsleeve, overshirt in velluto, cappellino e berretto. Si possono provare altre parole chiave, oppure caricare foto proprie.
+2. **Chiave Unsplash.** Non è nel repository. È stata incollata in chat: rigenerala su unsplash.com/oauth/applications prima di andare in produzione. Per i prossimi lavori aggiungila come segreto di rete dell'ambiente "Wardrobe":
    - host `api.unsplash.com`
    - header `Authorization`
    - valore `Client-ID <chiave>`
-4. **Link online stabile** (Vercel, vedi 2E).
-5. **Roadmap prodotto**, dettagliata nel README §7: backend e account, riconoscimento reale con un modello di visione, motore v2 con pesi appresi, generazione reale del look, onboarding, PWA.
+3. **Link online stabile** (Vercel, vedi 2E).
+4. **Roadmap prodotto**, dettagliata nel README §7: backend e account, riconoscimento reale con un modello di visione, motore v2 con pesi appresi, generazione reale del look, onboarding, PWA.
 
 ---
 

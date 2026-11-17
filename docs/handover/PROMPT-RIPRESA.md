@@ -14,7 +14,7 @@ Prima di tutto:
 
 Regole:
 - Rispetta l'architettura e le decisioni del handover: motore deterministico, solo capi reali, nessuna funzione AI finta presentata come vera, stile morbido/moderno/lucido.
-- Lavora sul ramo claude/hopeful-gauss-xze77g, aggiornato con main. Fai commit chiari e push. Apri una PR solo se te lo chiedo.
+- Parti dall'ultimo main e lavora su un ramo nuovo. Fai commit chiari e push. Apri una PR solo se te lo chiedo.
 - Prima di consegnare esegui lint, test e la suite end-to-end (node e2e/acceptance.cjs con il server avviato). La CI su GitHub deve risultare verde.
 - Non salvare mai chiavi API nel repository.
 - Rispondimi in italiano.

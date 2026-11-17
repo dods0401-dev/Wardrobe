@@ -51,7 +51,7 @@ All tokens live in `src/app/globals.css`.
 
 ## Git
 - `main` holds the merged prototype (PR #1).
-- Work branch: `claude/hopeful-gauss-xze77g`. Bring it up to date with `main` before starting new work. Open a PR to `main` only when the user asks.
-- CI (`.github/workflows/ci.yml`) runs lint, unit tests, the production build and the 47 end-to-end checks on every push and pull request.
+- Start new work from the latest `main` on a fresh branch (the session's assigned branch if it has one). The old `claude/hopeful-gauss-xze77g` branch is retired. Open a PR to `main` only when the user asks.
+- CI (`.github/workflows/ci.yml`) runs lint, unit tests, the production build and the 47 end-to-end checks on every pull request and every push to `main`.
 - Commit messages describe the change.
 - No model names go in commits or code.

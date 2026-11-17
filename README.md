@@ -27,7 +27,7 @@ npm run dev          # http://localhost:3000
 | `npm test` | Unit tests for the recommendation engine (Vitest) |
 | `npm run e2e` | End-to-end acceptance run (Playwright, needs a running server, see below) |
 
-**Continuous integration:** `.github/workflows/ci.yml` runs lint, unit tests, the production build and the end-to-end suite on every push and pull request.
+**Continuous integration:** `.github/workflows/ci.yml` runs lint, unit tests, the production build and the end-to-end suite on every pull request and every push to `main`.
 
 End-to-end acceptance (47 checks across desktop and iPhone 13 viewports):
 
