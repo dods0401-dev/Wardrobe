@@ -89,9 +89,9 @@ export function AiLook({
         </g>
       </svg>
       <div className="absolute inset-x-0 top-0 flex items-start justify-between p-3">
-        <span className="label rounded-xs bg-ink px-2 py-1 !text-[10px] text-paper">AI Visualization — Demo</span>
+        <span className="rounded-full bg-white/85 px-2.5 py-1 text-[11px] font-medium text-ink-2 backdrop-blur">AI visualization · demo</span>
       </div>
-      <p className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-ink/55 to-transparent px-3 pb-2.5 pt-8 text-[11px] leading-snug text-white">
+      <p className="absolute inset-x-3 bottom-3 rounded-md bg-white/80 px-3 py-2 text-[11px] leading-snug text-ink-2 backdrop-blur">
         Illustrative render built from colours &amp; shapes. Not an image of your actual garments; no image generation runs in this prototype.
       </p>
     </div>

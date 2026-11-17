@@ -15,11 +15,11 @@ import { cn } from "@/components/ui/cn";
 
 function Panel({ title, label, children, className, action }: { title: string; label?: string; children: React.ReactNode; className?: string; action?: React.ReactNode }) {
   return (
-    <section className={cn("border-t border-ink pt-4", className)}>
+    <section className={cn("rounded-lg bg-surface p-5 shadow-[var(--shadow-soft)] sm:p-6", className)}>
       <div className="mb-4 flex items-end justify-between gap-3">
         <div>
           {label && <p className="label text-ink-3">{label}</p>}
-          <h2 className="display text-2xl leading-none">{title}</h2>
+          <h2 className="display text-lg leading-tight">{title}</h2>
         </div>
         {action}
       </div>
@@ -38,8 +38,8 @@ function Bars({ rows, max, unit = "" }: { rows: { key: string; label: React.Reac
             {r.swatch && <span className="block size-3 shrink-0 rounded-full ring-1 ring-ink/15" style={{ background: r.swatch }} />}
             <span className="truncate">{r.label}</span>
           </span>
-          <span className="h-2.5 overflow-hidden rounded-r-[4px] bg-stone/40">
-            <span className="block h-full rounded-r-[4px] bg-ink transition-[width] duration-500 group-hover:bg-accent" style={{ width: `${max ? (r.value / max) * 100 : 0}%` }} />
+          <span className="h-2 overflow-hidden rounded-full bg-paper-2">
+            <span className="block h-full rounded-full bg-accent transition-[width] duration-500 group-hover:bg-accent-ink" style={{ width: `${max ? (r.value / max) * 100 : 0}%` }} />
           </span>
           <span className="text-right tabular-nums text-ink-2">
             {r.value}
@@ -59,14 +59,14 @@ function UsageList({ rows, empty }: { rows: ItemUsageRow[]; empty: string }) {
         <li key={r.item.id}>
           <Link href={`/wardrobe/${r.item.id}`} className="group flex items-center gap-3 py-2">
             <span className="label w-4 text-ink-4">{i + 1}</span>
-            <span className="size-11 shrink-0 overflow-hidden rounded-xs ring-1 ring-line group-hover:ring-ink">
+            <span className="size-11 shrink-0 overflow-hidden rounded-md bg-paper">
               <ItemImage item={r.item} />
             </span>
             <span className="min-w-0 flex-1">
               <span className="block truncate text-sm font-semibold">{r.item.name}</span>
               <span className="label text-ink-3">{r.lastWorn ? `Last ${formatDate(r.lastWorn)}` : "Never worn"}</span>
             </span>
-            <span className="display text-xl tabular-nums">{r.count}×</span>
+            <span className="text-base font-semibold tabular-nums">{r.count}×</span>
           </Link>
         </li>
       ))}
@@ -105,15 +105,13 @@ export default function StatsPage() {
         eyebrow="Style Stats"
         title={
           <>
-            You wear
-            <br />
-            <span className="text-accent">{Math.round(stats.utilization * 100)}%</span> <span className="text-ink-3">of it.</span>
+            You wear <span className="text-accent">{Math.round(stats.utilization * 100)}%</span> of your wardrobe
           </>
         }
         intro={`${stats.itemsWorn90} of ${stats.totalItems} pieces have been worn in the last 90 days. Everything here updates as you log outfits.`}
       />
 
-      <section className="mt-8 grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-6" aria-label="Key numbers">
+      <section className="mt-6 grid grid-cols-2 gap-6 rounded-lg bg-surface p-5 shadow-[var(--shadow-soft)] sm:grid-cols-3 sm:p-6 lg:grid-cols-6" aria-label="Key numbers">
         <Stat label="Outfits worn" value={stats.totalWears} sub={`${stats.wearsLast30} in 30 days`} />
         <Stat label="Utilisation" value={`${Math.round(stats.utilization * 100)}%`} sub="last 90 days" tone="accent" />
         <Stat label="Avg item usage" value={`${stats.averageUsage.toFixed(1)}×`} sub="wears per piece" />
@@ -122,10 +120,10 @@ export default function StatsPage() {
         <Stat label="Streak" value={`${stats.streak}d`} sub="days logged in a row" />
       </section>
 
-      <div className="mt-12 grid gap-12 lg:grid-cols-2">
+      <div className="mt-3 grid gap-3 lg:grid-cols-2">
         <Panel title="Wears per week" label="Last 8 weeks">
           <div className="relative">
-            <div className="flex h-44 items-end gap-2 border-b border-ink/30" role="img" aria-label={stats.weekly.map((w) => `Week of ${formatDate(w.weekStart)}: ${w.count}`).join("; ")}>
+            <div className="flex h-44 items-end gap-2 border-b border-line" role="img" aria-label={stats.weekly.map((w) => `Week of ${formatDate(w.weekStart)}: ${w.count}`).join("; ")}>
               {stats.weekly.map((w, i) => (
                 <button
                   key={w.weekStart}
@@ -138,7 +136,7 @@ export default function StatsPage() {
                   className="relative flex h-full flex-1 items-end"
                 >
                   <span
-                    className={cn("block w-full rounded-t-[4px] transition-colors", hoverWeek === i ? "bg-accent" : i === stats.weekly.length - 1 ? "bg-ink" : "bg-ink-3")}
+                    className={cn("block w-full rounded-t-[6px] transition-colors", hoverWeek === i ? "bg-accent-ink" : i === stats.weekly.length - 1 ? "bg-accent" : "bg-accent/45")}
                     style={{ height: `${(w.count / weekMax) * 100}%`, minHeight: w.count ? 4 : 0 }}
                   />
                   {hoverWeek === i && (
@@ -169,7 +167,7 @@ export default function StatsPage() {
                   <span className="truncate">{categoryPlural(c.category)}</span>
                   <span className="flex h-2.5 gap-[2px]">
                     {Array.from({ length: c.items }).map((_, i) => (
-                      <span key={i} className={cn("h-full flex-1 first:rounded-l-[4px] last:rounded-r-[4px]", i < worn90 ? "bg-ink" : "bg-stone/60")} />
+                      <span key={i} className={cn("h-full flex-1 first:rounded-l-[4px] last:rounded-r-[4px]", i < worn90 ? "bg-accent" : "bg-paper-2")} />
                     ))}
                   </span>
                   <span className="text-right tabular-nums text-ink-2">
@@ -236,7 +234,7 @@ export default function StatsPage() {
             ).map(([label, v]) => (
               <div key={label}>
                 <dt className="label text-ink-3">{label}</dt>
-                <dd className="display text-3xl tabular-nums">{v ?? 0}</dd>
+                <dd className="display text-2xl tabular-nums">{v ?? 0}</dd>
               </div>
             ))}
           </dl>

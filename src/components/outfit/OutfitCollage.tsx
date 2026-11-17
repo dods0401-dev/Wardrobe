@@ -49,7 +49,7 @@ export function OutfitCollage({
 }) {
   const boxes = layout(new Set(pieces.map((p) => p.slot)));
   return (
-    <div className={cn("relative aspect-[4/5] w-full overflow-hidden studio grain", className)} data-mode="collage">
+    <div className={cn("relative aspect-[4/5] w-full overflow-hidden bg-surface", className)} data-mode="collage">
       {pieces.map((p) => {
         const b = boxes[p.slot];
         if (!b) return null;
@@ -72,15 +72,15 @@ export function OutfitCollage({
             data-item-id={p.item.id}
             className={cn(
               "absolute transition-[transform,opacity,filter] duration-300",
-              upload && "overflow-hidden rounded-sm shadow-[0_8px_24px_-12px_rgba(0,0,0,0.45)] ring-4 ring-white",
+              upload && "overflow-hidden rounded-md shadow-[0_8px_24px_-14px_rgba(0,0,0,0.35)]",
               highlight && highlight !== p.slot && "opacity-35 saturate-50",
               onPieceClick && "cursor-pointer hover:scale-[1.03]",
             )}
             style={style}
           >
-            <ItemImage item={p.item} bare fit="cover" className={upload ? "" : "drop-shadow-[0_10px_14px_rgba(23,23,23,0.18)]"} />
+            <ItemImage item={p.item} bare fit={upload ? "cover" : "contain"} className={upload ? "" : "drop-shadow-[0_6px_10px_rgba(43,42,40,0.10)]"} />
             {showMarkers && (
-              <span className="label absolute -left-1 -top-1 flex size-5 items-center justify-center rounded-full bg-ink !text-[10px] text-paper">
+              <span className="absolute -left-1 -top-1 flex size-5 items-center justify-center rounded-full bg-white text-[10px] font-semibold text-ink-2 shadow-sm ring-1 ring-line">
                 {p.index}
               </span>
             )}

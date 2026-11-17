@@ -67,22 +67,22 @@ export default function OutfitDetailPage() {
       </button>
 
       {outfit.rejected && (
-        <div className="mt-4 flex flex-wrap items-center gap-3 rounded-sm bg-ink px-4 py-3 text-sm text-paper">
+        <div className="mt-4 flex flex-wrap items-center gap-3 rounded-lg bg-paper-2 px-4 py-3 text-sm text-ink-2">
           You dismissed this look. It won’t be suggested again.
-          <Button size="sm" variant="inverse" icon={<Undo2 className="size-3.5" />} className="ml-auto" onClick={() => restore(outfit.id)}>
+          <Button size="sm" variant="secondary" icon={<Undo2 className="size-3.5" />} className="ml-auto" onClick={() => restore(outfit.id)}>
             Restore
           </Button>
         </div>
       )}
       {missing > 0 && (
-        <p className="mt-4 rounded-sm border border-accent/40 bg-accent/5 px-4 py-3 text-sm text-accent" role="alert">
+        <p className="mt-4 rounded-sm border border-danger/30 bg-danger-soft px-4 py-3 text-sm text-danger" role="alert">
           {missing} piece{missing > 1 ? "s" : ""} from this outfit no longer exist in your wardrobe.
         </p>
       )}
 
       <div className="mt-4 grid gap-8 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] lg:gap-14">
         <div className="lg:sticky lg:top-6 lg:self-start">
-          <div className="relative overflow-hidden rounded-sm">
+          <div className="relative overflow-hidden rounded-lg shadow-[var(--shadow-soft)]">
             <OutfitVisual outfit={outfit} pieces={pieces} onPieceClick={openReplace} />
             <div className="absolute right-3 top-3">
               <ScoreBadge score={outfit.score} />
@@ -90,7 +90,7 @@ export default function OutfitDetailPage() {
           </div>
           <div className="mt-3 flex flex-wrap items-center justify-between gap-2">
             <VisualModeSwitch size="sm" />
-            <p className="text-xs text-ink-3">{visualMode === "collage" ? "Tap a piece to swap it." : "Switch to Real wardrobe to see your actual pieces."}</p>
+            <p className="text-xs text-ink-3">{visualMode === "collage" ? "Tap a piece to swap it." : "Switch to “My pieces” to see your actual items."}</p>
           </div>
         </div>
 
@@ -101,7 +101,7 @@ export default function OutfitDetailPage() {
             {outfit.saved && <Badge tone="ink">Saved</Badge>}
             {wears.length > 0 && <Badge tone="accent">Worn {wears.length}×</Badge>}
           </div>
-          <h1 className="display mt-3 text-5xl leading-[0.9] sm:text-6xl">{outfit.name}</h1>
+          <h1 className="display mt-3 text-[2rem] leading-tight sm:text-display">{outfit.name}</h1>
           <p className="mt-4 text-[15px] leading-relaxed text-ink-2">{outfit.description}</p>
 
           <div className="mt-6 flex flex-wrap items-center gap-2">
@@ -137,8 +137,8 @@ export default function OutfitDetailPage() {
           </div>
 
           <section className="mt-8">
-            <div className="flex items-baseline justify-between border-b border-ink pb-2">
-              <h2 className="display text-xl">The pieces</h2>
+            <div className="flex items-baseline justify-between border-b border-line pb-2">
+              <h2 className="display text-lg">The pieces</h2>
               <button type="button" className="label inline-flex items-center gap-1 text-ink-3 hover:text-ink" onClick={() => openReplace(pieces[0]?.slot ?? "base")}>
                 <Repeat2 className="size-3.5" /> Swap or add
               </button>
@@ -147,7 +147,7 @@ export default function OutfitDetailPage() {
               {pieces.map((p) => (
                 <li key={p.slot} className="flex items-center gap-3 py-3" data-item-id={p.item.id}>
                   <span className="label w-4 text-ink-4">{p.index}</span>
-                  <Link href={`/wardrobe/${p.item.id}`} className="size-16 shrink-0 overflow-hidden rounded-xs ring-1 ring-line hover:ring-ink">
+                  <Link href={`/wardrobe/${p.item.id}`} className="size-16 shrink-0 overflow-hidden rounded-md bg-surface shadow-[var(--shadow-soft)]">
                     <ItemImage item={p.item} />
                   </Link>
                   <div className="min-w-0 flex-1">
@@ -161,14 +161,14 @@ export default function OutfitDetailPage() {
                       </span>
                       {p.item.fit && <span>· {fitLabel(p.item.fit)}</span>}
                       <span>· worn {usage[p.item.id]?.count ?? 0}×</span>
-                      {p.item.availability !== "available" && <span className="text-accent">· unavailable</span>}
+                      {p.item.availability !== "available" && <span className="text-danger">· unavailable</span>}
                     </p>
                   </div>
                   <button
                     type="button"
                     onClick={() => openReplace(p.slot)}
                     aria-label={`Replace ${p.item.name}`}
-                    className="label inline-flex h-8 items-center gap-1 rounded-sm px-2 text-ink-3 hover:bg-ink/6 hover:text-ink"
+                    className="label inline-flex h-8 items-center gap-1 rounded-full px-3 text-ink-3 hover:bg-ink/6 hover:text-ink"
                   >
                     <Repeat2 className="size-3.5" /> Swap
                   </button>
@@ -179,7 +179,7 @@ export default function OutfitDetailPage() {
 
           <section className="mt-8 grid gap-8 sm:grid-cols-2">
             <div>
-              <h2 className="display border-b border-ink pb-2 text-xl">Why it works</h2>
+              <h2 className="display border-b border-line pb-2 text-lg">Why it works</h2>
               <ul className="mt-3 flex flex-col gap-2.5 text-sm leading-relaxed text-ink-2">
                 {outfit.rationale.map((r) => (
                   <li key={r} className="flex gap-2">
@@ -190,7 +190,7 @@ export default function OutfitDetailPage() {
               </ul>
             </div>
             <div>
-              <h2 className="display flex items-baseline justify-between border-b border-ink pb-2 text-xl">
+              <h2 className="display flex items-baseline justify-between border-b border-line pb-2 text-lg">
                 Score <span className="tabular-nums">{Math.round(outfit.score)}</span>
               </h2>
               <ScoreBreakdown breakdown={outfit.breakdown} className="mt-3" />
@@ -198,7 +198,7 @@ export default function OutfitDetailPage() {
           </section>
 
           <section className="mt-8">
-            <h2 className="display border-b border-ink pb-2 text-xl">History</h2>
+            <h2 className="display border-b border-line pb-2 text-lg">History</h2>
             {wears.length ? (
               <ul className="divide-y divide-line">
                 {wears.map((w) => (

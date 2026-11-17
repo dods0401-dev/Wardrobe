@@ -57,15 +57,13 @@ function Results() {
       <button type="button" onClick={() => router.push("/stylist")} className="label inline-flex items-center gap-1.5 text-ink-3 hover:text-ink">
         <ArrowLeft className="size-3.5" /> Edit brief
       </button>
-      <header className="mt-4 flex flex-col gap-5 border-b border-ink pb-6 lg:flex-row lg:items-end lg:justify-between">
+      <header className="mt-4 flex flex-col gap-5 pb-2 lg:flex-row lg:items-end lg:justify-between">
         <div className="animate-fade-up">
           <p className="label flex items-center gap-3 text-ink-3">
-            <span className="text-accent">03</span> Results{session.iteration ? ` · round ${session.iteration + 1}` : ""}
+            Results{session.iteration ? ` · round ${session.iteration + 1}` : ""}
           </p>
-          <h1 className="display mt-3 text-[2.6rem] leading-[0.92] sm:text-display lg:text-display-lg">
-            {list.length} looks for
-            <br />
-            <span className="text-ink-3">{occasionLabel(r.occasion).toLowerCase()}.</span>
+          <h1 className="display mt-2 text-[2rem] leading-[1.08] sm:text-display lg:text-display-lg">
+            {list.length} looks for {occasionLabel(r.occasion).toLowerCase()}
           </h1>
           <p className="mt-4 flex flex-wrap gap-x-2 gap-y-1 text-sm text-ink-2">
             {summary.map((s, i) => (
@@ -80,7 +78,7 @@ function Results() {
             <div className="mt-3 flex flex-wrap items-center gap-1.5">
               <DemoBadge>Brief understood as</DemoBadge>
               {session.understood.map((u) => (
-                <span key={u} className="label rounded-xs border border-ink/25 px-1.5 py-0.5 !text-[10px]">
+                <span key={u} className="rounded-full bg-surface px-2.5 py-0.5 text-[11px] font-medium text-ink-2 shadow-sm">
                   {u}
                 </span>
               ))}
@@ -102,10 +100,10 @@ function Results() {
         {session.evaluated.toLocaleString()} valid combinations scored from your wardrobe
         {rejectedCount ? ` · ${rejectedCount} dismissed` : ""}. Every piece shown is one you own.
       </p>
-      {session.shortfall && <p className="mt-2 text-sm text-accent">{session.shortfall}</p>}
+      {session.shortfall && <p className="mt-2 text-sm text-danger">{session.shortfall}</p>}
 
       {list.length ? (
-        <div className="mt-8 flex flex-col gap-12">
+        <div className="mt-6 flex flex-col gap-5">
           {list.map((o, i) => (
             <OutfitResultCard key={o.id} outfit={o} rank={i + 1} />
           ))}
@@ -124,8 +122,8 @@ function Results() {
       )}
 
       {list.length > 0 && (
-        <div className="mt-14 flex flex-col items-center gap-3 border-t border-ink pt-10 text-center">
-          <p className="display text-2xl">Not quite it?</p>
+        <div className="mt-10 flex flex-col items-center gap-3 pt-4 text-center">
+          <p className="display text-xl">Not quite it?</p>
           <p className="max-w-sm text-sm text-ink-3">Regenerate for a different set — looks already shown in this session won’t repeat.</p>
           <Button icon={<RefreshCw className="size-4" />} loading={busy} onClick={onRegenerate}>
             Regenerate

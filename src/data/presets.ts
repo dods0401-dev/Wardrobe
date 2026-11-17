@@ -12,7 +12,7 @@ export const PRESETS: {
     id: "tonal-layers",
     title: "Tonal layers",
     blurb: "Quiet neutrals, stacked for the cold. One texture doing the work.",
-    tone: "bg-stone text-ink",
+    tone: "bg-[#ece7df] text-ink",
     request: { occasion: "smart-casual", styles: ["minimal"], instructions: "tonal, layered, warm" },
   },
   {
@@ -26,7 +26,7 @@ export const PRESETS: {
     id: "gallery-opening",
     title: "Gallery opening",
     blurb: "Sharp but unbuttoned. Tailoring with a little edge.",
-    tone: "bg-ink text-paper",
+    tone: "bg-[#e3e7ec] text-ink",
     request: { occasion: "evening", styles: ["contemporary"], instructions: "sharp, no sneakers" },
   },
 ];

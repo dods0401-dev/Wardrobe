@@ -38,7 +38,7 @@ const fromRecognition = (r: RecognitionResult, src: string, fileName: string): I
 
 function RecognitionNote({ result }: { result: RecognitionResult }) {
   return (
-    <div className="flex items-start gap-3 rounded-sm border border-dashed border-ink/40 bg-paper-2 p-3 text-xs leading-relaxed text-ink-2">
+    <div className="flex items-start gap-3 rounded-md border border-dashed border-stone-2 bg-surface p-3 text-xs leading-relaxed text-ink-2">
       <ScanLine className="mt-0.5 size-4 shrink-0" />
       <div>
         <div className="mb-1 flex items-center gap-2">
@@ -131,15 +131,15 @@ export function AddItemDialog({ open, onClose, onAdded }: { open: boolean; onClo
               e.preventDefault();
               handleFile(e.dataTransfer.files[0]);
             }}
-            className="flex cursor-pointer flex-col items-center justify-center gap-3 rounded-sm border-2 border-dashed border-stone-2 px-6 py-14 text-center transition hover:border-ink"
+            className="flex cursor-pointer flex-col items-center justify-center gap-3 rounded-lg border-2 border-dashed border-stone-2 bg-surface px-6 py-14 text-center transition hover:border-accent"
           >
             <ImagePlus className="size-8 text-ink-3" />
-            <span className="display text-xl">Drop a photo, or browse</span>
+            <span className="display text-lg">Drop a photo, or browse</span>
             <span className="max-w-xs text-sm text-ink-3">JPG, PNG or WebP. A flat-lay on a plain background works best. Photos stay in this browser.</span>
             <input ref={fileRef} type="file" accept="image/*" className="sr-only" onChange={(e) => handleFile(e.target.files?.[0])} data-testid="single-upload" />
           </label>
           {error && (
-            <p className="text-sm text-accent" role="alert">
+            <p className="text-sm text-danger" role="alert">
               {error}
             </p>
           )}
@@ -255,7 +255,7 @@ export function EditItemDialog({ item, open, onClose }: { item: WardrobeItem; op
               Use generated cutout
             </Button>
           )}
-          {error && <p className="text-xs text-accent">{error}</p>}
+          {error && <p className="text-xs text-danger">{error}</p>}
         </div>
         <ItemForm draft={draft} onChange={setDraft} showErrors={showErrors} idPrefix="edit" compact />
       </div>
@@ -376,7 +376,7 @@ export function BulkUploadDialog({ open, onClose }: { open: boolean; onClose: ()
       ) : (
         <div className="flex flex-col gap-5">
           <div className="grid gap-3 sm:grid-cols-[1fr_auto]">
-            <label className="flex cursor-pointer items-center gap-4 rounded-sm border-2 border-dashed border-stone-2 px-5 py-5 transition hover:border-ink">
+            <label className="flex cursor-pointer items-center gap-4 rounded-lg border-2 border-dashed border-stone-2 bg-surface px-5 py-5 transition hover:border-accent">
               <Upload className="size-6 shrink-0 text-ink-3" />
               <span>
                 <span className="display block text-lg">Select up to 12 photos</span>
@@ -396,13 +396,13 @@ export function BulkUploadDialog({ open, onClose }: { open: boolean; onClose: ()
           {rows.length > 0 && (
             <ul className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
               {rows.map((r) => (
-                <li key={r.key} className={cn("rounded-sm border border-line p-2", r.status === "error" && "border-accent/50")}>
+                <li key={r.key} className={cn("rounded-sm border border-line p-2", r.status === "error" && "border-danger/50")}>
                   <div className="relative aspect-square overflow-hidden rounded-xs bg-paper-2">
                     {r.draft ? (
                       <ItemImage item={r.draft} fit="cover" />
                     ) : (
                       <div className="flex h-full items-center justify-center">
-                        {r.status === "processing" ? <Loader2 className="size-6 animate-spin text-ink-3" /> : <X className="size-6 text-accent" />}
+                        {r.status === "processing" ? <Loader2 className="size-6 animate-spin text-ink-3" /> : <X className="size-6 text-danger" />}
                       </div>
                     )}
                     <button
@@ -420,7 +420,7 @@ export function BulkUploadDialog({ open, onClose }: { open: boolean; onClose: ()
                         aria-label="Item name"
                         value={r.draft.name}
                         onChange={(e) => update(r.key, { draft: { ...r.draft!, name: e.target.value } })}
-                        className={cn("w-full rounded-xs border bg-paper-3 px-2 py-1 text-[13px] font-semibold focus:border-ink focus:outline-none", r.draft.name.trim() ? "border-transparent" : "border-accent")}
+                        className={cn("w-full rounded-xs border bg-paper-3 px-2 py-1 text-[13px] font-semibold focus:border-ink focus:outline-none", r.draft.name.trim() ? "border-transparent" : "border-danger")}
                       />
                       <p className="label truncate px-2 text-ink-3">
                         {categoryLabel(r.draft.category)} · {colorLabel(r.draft.mainColor)}

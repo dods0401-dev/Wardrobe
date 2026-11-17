@@ -71,7 +71,7 @@ export function Modal({
 
   return createPortal(
     <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center" role="presentation">
-      <div className="absolute inset-0 bg-ink/45 backdrop-blur-[2px] animate-fade-in" onClick={onClose} aria-hidden />
+      <div className="absolute inset-0 bg-ink/30 backdrop-blur-[3px] animate-fade-in" onClick={onClose} aria-hidden />
       <div
         ref={panel}
         role="dialog"
@@ -79,23 +79,23 @@ export function Modal({
         aria-label={title}
         tabIndex={-1}
         className={cn(
-          "relative flex w-full flex-col bg-paper shadow-2xl outline-none animate-sheet-up",
-          "max-h-[92dvh] rounded-t-lg sm:rounded-md",
+          "relative flex w-full flex-col bg-paper shadow-2xl outline-none animate-sheet-up overflow-hidden",
+          "max-h-[92dvh] rounded-t-[20px] sm:rounded-lg",
           variant === "drawer"
             ? "sm:fixed sm:right-0 sm:top-0 sm:h-dvh sm:max-h-dvh sm:max-w-lg sm:rounded-none"
             : widths[size],
         )}
       >
-        <header className="flex items-start justify-between gap-4 border-b border-line px-5 py-4 sm:px-6">
+        <header className="flex items-start justify-between gap-4 px-5 pb-3 pt-5 sm:px-6">
           <div className="min-w-0">
             {eyebrow && <p className="label text-ink-3 mb-1">{eyebrow}</p>}
-            <h2 className="display text-xl sm:text-2xl leading-tight">{title}</h2>
+            <h2 className="display text-lg sm:text-xl leading-tight">{title}</h2>
           </div>
           <button
             type="button"
             onClick={onClose}
             aria-label="Close"
-            className="-mr-2 -mt-1 inline-flex size-10 shrink-0 items-center justify-center rounded-sm hover:bg-ink/6"
+            className="-mr-2 -mt-1 inline-flex size-10 shrink-0 items-center justify-center rounded-full hover:bg-ink/6"
           >
             <X className="size-5" />
           </button>
@@ -140,7 +140,7 @@ export function ConfirmDialog({
           <Button variant="ghost" onClick={onCancel}>
             Cancel
           </Button>
-          <Button variant={tone === "danger" ? "accent" : "primary"} onClick={onConfirm}>
+          <Button variant={tone === "danger" ? "destructive" : "primary"} onClick={onConfirm}>
             {confirmLabel}
           </Button>
         </>

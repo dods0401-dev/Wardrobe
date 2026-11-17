@@ -3,7 +3,7 @@
 import { Suspense, useMemo, useState } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { ArrowRight, Ban, Plus, Sparkles, X } from "lucide-react";
+import { ArrowRight, Ban, Plus, Layers, X } from "lucide-react";
 import type { ColorId, Occasion, Season, StyleTag, StylistRequest } from "@/domain/types";
 import { CATEGORIES, COLORS, OCCASIONS, SEASONS, STYLES, occasionLabel, seasonLabel } from "@/domain/taxonomy";
 import { useWardrobe, currentSeason } from "@/store/useWardrobe";
@@ -26,10 +26,10 @@ const STEPS = ["Reading your wardrobe", "Building valid combinations", "Scoring 
 
 function Step({ n, title, children, hint }: { n: string; title: string; children: React.ReactNode; hint?: React.ReactNode }) {
   return (
-    <section className="grid gap-4 border-t border-ink py-7 md:grid-cols-[13rem_1fr] md:gap-10">
+    <section className="grid gap-4 rounded-lg bg-surface p-5 shadow-[var(--shadow-soft)] sm:p-6 md:grid-cols-[12rem_1fr] md:gap-10">
       <div>
-        <p className="label text-accent">{n}</p>
-        <h2 className="display mt-1 text-2xl leading-none">{title}</h2>
+
+        <h2 className="display text-lg leading-tight">{title}</h2>
         {hint && <p className="mt-2 text-xs leading-relaxed text-ink-3">{hint}</p>}
       </div>
       <div className="min-w-0">{children}</div>
@@ -114,25 +114,25 @@ function StylistForm() {
       />
 
       {anchors.length > 0 && (
-        <div className="mt-6 flex items-center gap-4 rounded-sm bg-ink p-3 text-paper">
+        <div className="mt-6 flex items-center gap-4 rounded-lg bg-accent-soft p-3 text-ink">
           {anchors.map((a) => (
             <div key={a.id} className="flex items-center gap-3">
-              <div className="size-14 overflow-hidden rounded-xs">
+              <div className="size-14 overflow-hidden rounded-md bg-surface">
                 <ItemImage item={a} />
               </div>
               <div>
-                <p className="label text-stone">Built around</p>
-                <p className="display text-lg leading-tight">{a.name}</p>
+                <p className="label text-accent-ink">Built around</p>
+                <p className="display text-base leading-tight">{a.name}</p>
               </div>
             </div>
           ))}
-          <button type="button" className="ml-auto flex size-9 items-center justify-center rounded-sm hover:bg-paper/10" aria-label="Remove anchor" onClick={() => set("anchorItemIds", [])}>
+          <button type="button" className="ml-auto flex size-9 items-center justify-center rounded-full hover:bg-white/60" aria-label="Remove anchor" onClick={() => set("anchorItemIds", [])}>
             <X className="size-4" />
           </button>
         </div>
       )}
 
-      <div className="mt-8">
+      <div className="mt-6 flex flex-col gap-3">
         <Step n="01" title="Occasion">
           <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-4" role="radiogroup" aria-label="Occasion">
             {OCCASIONS.map((o) => {
@@ -145,12 +145,12 @@ function StylistForm() {
                   aria-checked={active}
                   onClick={() => set("occasion", o.id as Occasion)}
                   className={cn(
-                    "flex min-h-24 flex-col justify-between rounded-sm border p-3 text-left transition-colors",
-                    active ? "border-ink bg-ink text-paper" : "border-stone-2 hover:border-ink",
+                    "flex min-h-24 flex-col justify-between rounded-md border p-3.5 text-left transition-colors",
+                    active ? "border-accent bg-accent-soft text-ink" : "border-line bg-paper/60 hover:border-stone-2",
                   )}
                 >
-                  <span className="display text-lg leading-tight">{o.label}</span>
-                  <span className={cn("text-xs leading-snug", active ? "text-paper/70" : "text-ink-3")}>{o.blurb}</span>
+                  <span className="display text-base leading-tight">{o.label}</span>
+                  <span className="text-xs leading-snug text-ink-3">{o.blurb}</span>
                 </button>
               );
             })}
@@ -202,7 +202,7 @@ function StylistForm() {
                 key={idea}
                 type="button"
                 onClick={() => set("instructions", req.instructions ? `${req.instructions.replace(/[,\s]+$/, "")}, ${idea.toLowerCase()}` : idea)}
-                className="label h-7 rounded-sm border border-dashed border-stone-2 px-2.5 text-ink-3 hover:border-ink hover:text-ink"
+                className="h-8 rounded-full border border-dashed border-stone-2 px-3 text-[13px] text-ink-3 hover:border-ink-4 hover:text-ink"
               >
                 + {idea}
               </button>
@@ -221,8 +221,8 @@ function StylistForm() {
         <Step n="05" title="Leave out" hint="Pieces the stylist must not use today.">
           <div className="flex flex-wrap items-center gap-2">
             {excluded.map((i) => (
-              <span key={i.id} className="inline-flex h-10 items-center gap-2 rounded-sm border border-ink pl-1 pr-1.5">
-                <span className="size-8 overflow-hidden rounded-xs">
+              <span key={i.id} className="inline-flex h-10 items-center gap-2 rounded-full border border-line bg-paper pl-1 pr-1.5">
+                <span className="size-8 overflow-hidden rounded-full bg-surface">
                   <ItemImage item={i} />
                 </span>
                 <span className="max-w-40 truncate text-[13px] font-medium">{i.name}</span>
@@ -253,7 +253,7 @@ function StylistForm() {
                   role="radio"
                   aria-checked={req.count === n}
                   onClick={() => set("count", n)}
-                  className={cn("display size-12 rounded-sm border text-xl", req.count === n ? "border-ink bg-ink text-paper" : "border-stone-2 hover:border-ink")}
+                  className={cn("display size-12 rounded-full border text-lg", req.count === n ? "border-accent bg-accent-soft text-accent-ink" : "border-line hover:border-stone-2")}
                 >
                   {n}
                 </button>
@@ -268,23 +268,23 @@ function StylistForm() {
       </div>
 
       {/* Sticky generate bar */}
-      <div className="fixed inset-x-0 bottom-[calc(4rem+env(safe-area-inset-bottom))] z-30 border-t border-ink bg-paper/95 backdrop-blur lg:bottom-0 lg:left-[15.5rem]">
+      <div className="fixed inset-x-0 bottom-[calc(4rem+env(safe-area-inset-bottom))] z-30 border-t border-line bg-paper/90 backdrop-blur lg:bottom-0 lg:left-[15.5rem]">
         <div className="mx-auto flex max-w-[1200px] items-center gap-4 px-4 py-3 sm:px-8 lg:px-12">
           <p className="hidden min-w-0 flex-1 truncate text-sm text-ink-2 sm:block">
             <strong>{occasionLabel(req.occasion)}</strong> · {seasonLabel(req.season)}
             {req.styles.length ? ` · ${req.styles.map((s) => STYLES.find((x) => x.id === s)?.label).join(", ")}` : ""}
             {req.excludedItemIds.length ? ` · ${req.excludedItemIds.length} excluded` : ""}
           </p>
-          <Button variant="accent" size="lg" className="flex-1 sm:flex-none" icon={<Sparkles className="size-4" />} loading={loading} onClick={run}>
+          <Button variant="accent" size="lg" className="flex-1 sm:flex-none" icon={<Layers className="size-4" />} loading={loading} onClick={run}>
             {loading ? STEPS[step] : `Generate ${req.count} outfits`}
           </Button>
         </div>
       </div>
 
       {sessions.length > 0 && (
-        <section className="mt-6 border-t border-ink pt-7">
-          <h2 className="display text-2xl">Recent briefs</h2>
-          <ul className="mt-4 divide-y divide-line border-y border-line">
+        <section className="mt-6 rounded-lg bg-surface p-5 shadow-[var(--shadow-soft)] sm:p-6">
+          <h2 className="display text-lg">Recent briefs</h2>
+          <ul className="mt-3 divide-y divide-line">
             {sessions.slice(0, 5).map((s) => {
               const live = s.outfitIds.filter((id) => outfits[id] && !outfits[id].rejected).length;
               return (
@@ -339,11 +339,11 @@ function StylistForm() {
                       }}
                       className="group text-left disabled:opacity-40"
                     >
-                      <div className={cn("relative aspect-square overflow-hidden rounded-sm ring-1", selected ? "ring-2 ring-accent" : "ring-line group-hover:ring-ink")}>
+                      <div className={cn("relative aspect-square overflow-hidden rounded-md bg-surface", selected ? "ring-2 ring-danger" : "ring-1 ring-line group-hover:ring-stone-2")}>
                         <ItemImage item={i} />
                         {selected && pickerOpen === "exclude" && (
                           <span className="absolute inset-0 flex items-center justify-center bg-paper/60">
-                            <Ban className="size-7 text-accent" />
+                            <Ban className="size-7 text-danger" />
                           </span>
                         )}
                       </div>

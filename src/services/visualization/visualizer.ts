@@ -17,7 +17,7 @@ export interface LookVisualizer {
   render(outfit: Pick<Outfit, "id" | "name" | "style">): LookRender;
 }
 
-const BACKDROPS = ["#d8d4cb", "#c9c3b5", "#b7c5a4", "#e2ddd2", "#cfc6b4", "#bfc4bd"];
+const BACKDROPS = ["#ece8e1", "#e4e9e3", "#e9e4dc", "#e6e8ec", "#efe9e2", "#e2e7e1"];
 
 export const simulatedLookVisualizer: LookVisualizer = {
   isDemo: true,

@@ -92,8 +92,8 @@ export default function ItemDetailPage() {
 
       <div className="mt-4 grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-14">
         <div className="relative">
-          <div className="aspect-[4/5] overflow-hidden rounded-sm">
-            <ItemImage item={item} fit="cover" />
+          <div className="aspect-[4/5] overflow-hidden rounded-lg bg-surface shadow-[var(--shadow-soft)]">
+            <ItemImage item={item} fit="contain" className="p-6" />
           </div>
           {item.image.kind === "render" && (
             <p className="mt-2 text-xs text-ink-3">Generated product cutout. Upload a photo from “Edit” to replace it.</p>
@@ -105,7 +105,7 @@ export default function ItemDetailPage() {
             <Badge tone="outline">{categoryLabel(item.category)}</Badge>
             {item.availability !== "available" && <Badge tone="ink">{AVAILABILITY.find((a) => a.id === item.availability)?.label}</Badge>}
           </div>
-          <h1 className="display mt-3 text-[2.5rem] leading-[0.92] sm:text-6xl">{item.name}</h1>
+          <h1 className="display mt-3 text-[2rem] leading-tight sm:text-display">{item.name}</h1>
           {item.brand && <p className="label mt-3 text-ink-3">{item.brand}</p>}
 
           <div className="mt-6 flex flex-wrap gap-2">
@@ -125,7 +125,7 @@ export default function ItemDetailPage() {
             </Button>
           </div>
 
-          <div className="mt-8 grid grid-cols-3 gap-4 border-y border-ink py-5">
+          <div className="mt-6 grid grid-cols-3 gap-4 rounded-lg bg-surface p-5 shadow-[var(--shadow-soft)]">
             <Stat label="Worn" value={`${u?.count ?? 0}×`} />
             <Stat label="Last worn" value={since === null ? "—" : since === 0 ? "Today" : `${since}d`} sub={u?.lastWorn ? formatDate(u.lastWorn) : "Never"} />
             <Stat label="In looks" value={featuring.length} sub={`${savedFeaturing.length} saved`} />
@@ -143,7 +143,7 @@ export default function ItemDetailPage() {
                     updateItem(item.id, { availability: a.id as Availability });
                     toast({ title: `Marked as ${a.label.toLowerCase()}`, description: a.id === "available" ? "The stylist can use it again." : "The stylist will skip it until it's back." });
                   }}
-                  className={cn("label h-8 rounded-sm border px-3", item.availability === a.id ? "border-ink bg-ink text-paper" : "border-stone-2 hover:border-ink")}
+                  className={cn("h-8 rounded-full border px-3.5 text-[13px] font-medium", item.availability === a.id ? "border-accent bg-accent-soft text-accent-ink" : "border-line bg-surface text-ink-2 hover:border-stone-2")}
                 >
                   {a.label}
                 </button>
@@ -151,7 +151,7 @@ export default function ItemDetailPage() {
             </div>
           </fieldset>
 
-          <dl className="mt-8 divide-y divide-line border-y border-line">
+          <dl className="mt-6 divide-y divide-line rounded-lg bg-surface px-5 shadow-[var(--shadow-soft)]">
             {rows.map(([k, v]) => (
               <div key={k} className="grid grid-cols-[7.5rem_1fr] gap-4 py-2.5 text-sm">
                 <dt className="label pt-0.5 text-ink-3">{k}</dt>
@@ -163,7 +163,7 @@ export default function ItemDetailPage() {
           <button
             type="button"
             onClick={() => setConfirmDelete(true)}
-            className="label mt-6 inline-flex items-center gap-1.5 self-start text-ink-3 hover:text-accent"
+            className="label mt-6 inline-flex items-center gap-1.5 self-start text-ink-3 hover:text-danger"
           >
             <Trash2 className="size-3.5" /> Delete piece
           </button>
@@ -171,7 +171,7 @@ export default function ItemDetailPage() {
       </div>
 
       <section className="mt-16">
-        <h2 className="display mb-4 text-2xl">Looks featuring this piece</h2>
+        <h2 className="display mb-4 text-xl">Looks featuring this piece</h2>
         {featuring.length ? (
           <div className="grid grid-cols-2 gap-x-4 gap-y-8 md:grid-cols-4">
             {featuring.slice(0, 8).map((o) => (

@@ -36,17 +36,17 @@ export function OutfitResultCard({ outfit, rank }: { outfit: Outfit; rank: numbe
 
   return (
     <article
-      className="grid gap-5 border-t border-ink pt-5 md:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] md:gap-8 animate-fade-up"
+      className="grid gap-5 rounded-lg bg-surface p-3 shadow-[var(--shadow-soft)] sm:p-4 md:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] md:gap-8 md:p-5 animate-fade-up"
       style={{ animationDelay: `${rank * 70}ms` }}
       aria-label={`Outfit ${rank}: ${outfit.name}`}
     >
       <div className="relative">
-        <Link href={`/outfits/${outfit.id}`} aria-label={`Open ${outfit.name}`} className="block overflow-hidden rounded-sm">
+        <Link href={`/outfits/${outfit.id}`} aria-label={`Open ${outfit.name}`} className="block overflow-hidden rounded-md bg-paper">
           <OutfitVisual outfit={outfit} pieces={pieces} highlight={hover} />
         </Link>
         <div className="pointer-events-none absolute bottom-3 left-3 flex gap-1.5">
-          <span className="display flex size-8 items-center justify-center rounded-xs bg-accent text-sm text-white">
-            {String(rank).padStart(2, "0")}
+          <span className="flex h-7 items-center justify-center rounded-full bg-white/90 px-2.5 text-xs font-medium text-ink-2 shadow-sm">
+            Look {rank}
           </span>
         </div>
         <div className="absolute right-3 top-3">
@@ -60,10 +60,10 @@ export function OutfitResultCard({ outfit, rank }: { outfit: Outfit; rank: numbe
           {styleLabel(outfit.style) !== occasionLabel(outfit.occasion) && <Badge tone="sage">{styleLabel(outfit.style)}</Badge>}
           {outfit.saved && <Badge tone="ink">Saved</Badge>}
         </div>
-        <h3 className="display mt-3 text-3xl leading-none sm:text-4xl">{outfit.name}</h3>
+        <h3 className="display mt-3 text-2xl leading-tight sm:text-[1.75rem]">{outfit.name}</h3>
         <p className="mt-3 text-[15px] leading-relaxed text-ink-2">{outfit.description}</p>
 
-        <ol className="mt-5 divide-y divide-line border-y border-line">
+        <ol className="mt-5 divide-y divide-line">
           {pieces.map((p) => (
             <li
               key={p.slot}
@@ -72,7 +72,7 @@ export function OutfitResultCard({ outfit, rank }: { outfit: Outfit; rank: numbe
               className="flex items-center gap-3 py-2"
             >
               <span className="label w-4 text-ink-4">{p.index}</span>
-              <Link href={`/wardrobe/${p.item.id}`} className="size-11 shrink-0 overflow-hidden rounded-xs ring-1 ring-line">
+              <Link href={`/wardrobe/${p.item.id}`} className="size-12 shrink-0 overflow-hidden rounded-md bg-paper">
                 <ItemImage item={p.item} />
               </Link>
               <div className="min-w-0 flex-1">
@@ -82,7 +82,7 @@ export function OutfitResultCard({ outfit, rank }: { outfit: Outfit; rank: numbe
               <button
                 type="button"
                 onClick={() => openReplace(p.slot)}
-                className="label inline-flex h-8 items-center gap-1 rounded-sm px-2 text-ink-3 hover:bg-ink/6 hover:text-ink"
+                className="label inline-flex h-8 items-center gap-1 rounded-full px-3 text-ink-3 hover:bg-ink/6 hover:text-ink"
                 aria-label={`Replace ${p.item.name}`}
               >
                 <Repeat2 className="size-3.5" /> Swap
@@ -92,7 +92,7 @@ export function OutfitResultCard({ outfit, rank }: { outfit: Outfit; rank: numbe
         </ol>
 
         <details className="group mt-4">
-          <summary className="label flex cursor-pointer list-none items-center gap-2 text-ink-3 hover:text-ink">
+          <summary className="flex cursor-pointer list-none items-center gap-2 text-sm font-medium text-ink-2 hover:text-ink">
             <span className="transition-transform group-open:rotate-45">+</span> Why this works
           </summary>
           <ul className="mt-3 flex flex-col gap-2 text-sm leading-relaxed text-ink-2">
@@ -139,7 +139,7 @@ export function OutfitResultCard({ outfit, rank }: { outfit: Outfit; rank: numbe
             <Link
               href={`/outfits/${outfit.id}`}
               aria-label="Open outfit detail"
-              className="inline-flex size-10 items-center justify-center rounded-sm hover:bg-ink/8"
+              className="inline-flex size-10 items-center justify-center rounded-full text-ink-2 hover:bg-ink/6"
             >
               <ArrowUpRight className="size-[18px]" />
             </Link>
@@ -158,23 +158,23 @@ export function OutfitTile({ outfit, meta, className, static: isStatic }: { outf
   const { pieces } = useOutfitPieces(outfit);
   const content = (
     <>
-      <div className="relative overflow-hidden rounded-sm">
+      <div className="relative overflow-hidden rounded-lg bg-surface shadow-[var(--shadow-soft)]">
         <OutfitVisual outfit={outfit} pieces={pieces} showMarkers={false} className="transition-transform duration-500 group-hover:scale-[1.02]" />
         <div className="absolute right-2 top-2 flex gap-1">
           {outfit.saved && (
-            <span className="flex size-7 items-center justify-center rounded-xs bg-ink text-paper" title="Saved">
+            <span className="flex size-7 items-center justify-center rounded-full bg-white/90 text-ink shadow-sm" title="Saved">
               <Bookmark className="size-3.5 fill-current" />
             </span>
           )}
           {outfit.liked && (
-            <span className="flex size-7 items-center justify-center rounded-xs bg-accent text-white" title="Liked">
+            <span className="flex size-7 items-center justify-center rounded-full bg-white/90 text-accent shadow-sm" title="Liked">
               <Heart className="size-3.5 fill-current" />
             </span>
           )}
         </div>
       </div>
       <div className="mt-2.5 flex items-baseline justify-between gap-2">
-        <h3 className="display truncate text-lg leading-tight">{outfit.name}</h3>
+        <h3 className="display truncate text-base leading-tight">{outfit.name}</h3>
         <span className="label shrink-0 tabular-nums text-ink-3">{Math.round(outfit.score)}</span>
       </div>
       <p className="label mt-0.5 truncate text-ink-3">{meta ?? `${occasionLabel(outfit.occasion)} · ${pieces.length} pieces`}</p>

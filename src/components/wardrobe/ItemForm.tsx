@@ -46,7 +46,7 @@ function Group({ label, children, error, hint }: { label: string; children: Reac
     <fieldset className="flex flex-col gap-2">
       <legend className="label mb-2 text-ink-3">{label}</legend>
       {children}
-      {error ? <p className="text-xs text-accent">{error}</p> : hint ? <p className="text-xs text-ink-3">{hint}</p> : null}
+      {error ? <p className="text-xs text-danger">{error}</p> : hint ? <p className="text-xs text-ink-3">{hint}</p> : null}
     </fieldset>
   );
 }

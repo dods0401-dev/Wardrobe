@@ -6,14 +6,14 @@ export function ScoreBadge({ score, className, inverse }: { score: number; class
   return (
     <span
       className={cn(
-        "inline-flex items-baseline gap-1 rounded-xs px-2 py-1",
-        inverse ? "bg-paper text-ink" : "bg-ink text-paper",
+        "inline-flex items-baseline gap-0.5 rounded-full px-2.5 py-1 shadow-sm",
+        inverse ? "bg-ink text-white" : "bg-white/90 text-ink backdrop-blur",
         className,
       )}
       title="Match score"
     >
-      <span className="display text-base leading-none tabular-nums">{Math.round(score)}</span>
-      <span className="label !text-[9px] opacity-70">/100</span>
+      <span className="text-sm font-semibold leading-none tabular-nums">{Math.round(score)}</span>
+      <span className="text-[10px] leading-none text-ink-3">% match</span>
     </span>
   );
 }
@@ -39,7 +39,7 @@ export function ScoreBreakdown({ breakdown, className }: { breakdown: SB; classN
             </dt>
             <dd className="text-xs font-semibold tabular-nums">{Math.round(v * 100)}</dd>
             <div className="col-span-2 h-1 overflow-hidden rounded-full bg-stone/70" aria-hidden>
-              <div className={cn("h-full rounded-full", v >= 0.8 ? "bg-ink" : v >= 0.6 ? "bg-ink-3" : "bg-accent")} style={{ width: `${Math.round(v * 100)}%` }} />
+              <div className={cn("h-full rounded-full", v >= 0.8 ? "bg-accent" : v >= 0.6 ? "bg-accent/60" : "bg-ink-4")} style={{ width: `${Math.round(v * 100)}%` }} />
             </div>
           </div>
         );

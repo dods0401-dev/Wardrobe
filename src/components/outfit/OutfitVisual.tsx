@@ -38,11 +38,11 @@ export function VisualModeSwitch({ className, size = "md" }: { className?: strin
   const mode = useWardrobe((s) => s.visualMode);
   const setMode = useWardrobe((s) => s.setVisualMode);
   return (
-    <div role="radiogroup" aria-label="Visualisation mode" className={cn("inline-flex rounded-sm border border-ink p-0.5 bg-paper", className)}>
+    <div role="radiogroup" aria-label="Visualisation mode" className={cn("inline-flex rounded-full bg-paper-2 p-1", className)}>
       {(
         [
-          ["collage", "Real wardrobe"],
-          ["ai", "AI look · demo"],
+          ["collage", "My pieces"],
+          ["ai", "On model · demo"],
         ] as const
       ).map(([v, label]) => (
         <button
@@ -52,9 +52,9 @@ export function VisualModeSwitch({ className, size = "md" }: { className?: strin
           aria-checked={mode === v}
           onClick={() => setMode(v)}
           className={cn(
-            "label rounded-xs transition-colors",
-            size === "sm" ? "h-7 px-2" : "h-8 px-3",
-            mode === v ? "bg-ink text-paper" : "text-ink hover:bg-ink/6",
+            "rounded-full text-[13px] font-medium transition-colors whitespace-nowrap",
+            size === "sm" ? "h-7 px-3" : "h-8 px-3.5",
+            mode === v ? "bg-surface text-ink shadow-[var(--shadow-soft)]" : "text-ink-3 hover:text-ink",
           )}
         >
           {label}

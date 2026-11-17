@@ -20,9 +20,9 @@ export function Chip({
       type="button"
       aria-pressed={selected}
       className={cn(
-        "inline-flex items-center gap-1.5 border rounded-sm font-medium transition-colors duration-150 whitespace-nowrap",
-        size === "sm" ? "h-7 px-2.5 text-xs" : "h-9 px-3 text-[13px]",
-        selected ? "bg-ink text-paper border-ink" : "bg-transparent text-ink border-stone-2 hover:border-ink",
+        "inline-flex items-center gap-1.5 border rounded-full font-medium transition-colors duration-150 whitespace-nowrap",
+        size === "sm" ? "h-8 px-3 text-[13px]" : "h-9 px-3.5 text-sm",
+        selected ? "bg-ink text-white border-ink" : "bg-surface text-ink-2 border-line hover:border-stone-2 hover:text-ink",
         className,
       )}
       {...rest}
@@ -66,7 +66,7 @@ export function ColorToggle({
       title={colorLabel(color)}
       className={cn(
         "relative size-8 rounded-full ring-1 ring-ink/15 transition-transform duration-150 hover:scale-110",
-        selected && (tone === "avoid" ? "ring-2 ring-accent ring-offset-2 ring-offset-paper" : "ring-2 ring-ink ring-offset-2 ring-offset-paper"),
+        selected && (tone === "avoid" ? "ring-2 ring-danger ring-offset-2 ring-offset-paper" : "ring-2 ring-accent ring-offset-2 ring-offset-paper"),
       )}
       style={{ background: hex }}
     >

@@ -25,7 +25,7 @@ const SP = process.argv[2];
   await page.waitForURL(/outfits/);
   await page.waitForTimeout(600);
   await page.screenshot({ path: SP + "/detail.png", fullPage: true });
-  await page.getByRole("radio", { name: /AI look/ }).click();
+  await page.getByRole("radio", { name: /On model/ }).click();
   await page.waitForTimeout(400);
   await page.screenshot({ path: SP + "/detail-ai.png" });
   console.log(JSON.stringify({ cards, errors }));

@@ -147,7 +147,7 @@ function LookbookView() {
         {filtersActive && (
           <button
             type="button"
-            className="label ml-1 shrink-0 text-accent hover:underline"
+            className="label ml-1 shrink-0 text-accent-ink hover:underline"
             onClick={() => {
               setOccasions([]);
               setFrom("");
@@ -191,7 +191,7 @@ function LookbookView() {
             <div className="flex flex-col gap-10">
               {byMonth.map(([monthKey, list]) => (
                 <section key={monthKey}>
-                  <h2 className="display border-b border-ink pb-2 text-2xl">
+                  <h2 className="display border-b border-line pb-2 text-lg">
                     {fromDateKey(`${monthKey}-01`).toLocaleDateString("en-GB", { month: "long", year: "numeric" })}
                     <span className="label ml-3 text-ink-3">{list.length} wears</span>
                   </h2>
@@ -201,7 +201,7 @@ function LookbookView() {
                       return (
                         <li key={e.id} className="grid grid-cols-[3.25rem_1fr_auto] items-center gap-3 py-3 sm:grid-cols-[4.5rem_1fr_auto_auto] sm:gap-5">
                           <div className="leading-none">
-                            <span className="display block text-2xl tabular-nums">{fromDateKey(e.date).getDate()}</span>
+                            <span className="display block text-xl tabular-nums">{fromDateKey(e.date).getDate()}</span>
                             <span className="label text-ink-3">{fromDateKey(e.date).toLocaleDateString("en-GB", { weekday: "short" })}</span>
                           </div>
                           <div className="min-w-0">
@@ -221,7 +221,7 @@ function LookbookView() {
                             type="button"
                             aria-label={`Remove wear of ${e.outfitName} on ${e.date}`}
                             onClick={() => setPendingDelete(e)}
-                            className="flex size-9 items-center justify-center rounded-sm text-ink-3 hover:bg-ink/6 hover:text-accent"
+                            className="flex size-9 items-center justify-center rounded-sm text-ink-3 hover:bg-ink/6 hover:text-danger"
                           >
                             <Trash2 className="size-4" />
                           </button>
@@ -239,8 +239,8 @@ function LookbookView() {
         {tab === "calendar" && (
           <div className="grid gap-8 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)]">
             <div>
-              <div className="flex items-center justify-between border-b border-ink pb-3">
-                <h2 className="display text-2xl">{month.toLocaleDateString("en-GB", { month: "long", year: "numeric" })}</h2>
+              <div className="flex items-center justify-between border-b border-line pb-3">
+                <h2 className="display text-xl">{month.toLocaleDateString("en-GB", { month: "long", year: "numeric" })}</h2>
                 <div className="flex gap-1">
                   <button type="button" aria-label="Previous month" className="flex size-9 items-center justify-center rounded-sm hover:bg-ink/6" onClick={() => setMonth(new Date(month.getFullYear(), month.getMonth() - 1, 1))}>
                     <ChevronLeft className="size-5" />
@@ -271,18 +271,18 @@ function LookbookView() {
                       aria-label={`${formatDate(key, { day: "numeric", month: "long" })}${list.length ? `, ${list.length} outfit${list.length > 1 ? "s" : ""}` : ""}`}
                       aria-pressed={selected}
                       className={cn(
-                        "relative flex aspect-square flex-col items-start overflow-hidden rounded-sm border p-1 text-left transition-colors sm:p-1.5",
+                        "relative flex aspect-square flex-col items-start overflow-hidden rounded-md border p-1 text-left transition-colors sm:p-1.5",
                         inMonth ? "border-line" : "border-transparent opacity-40",
-                        selected ? "border-ink bg-ink text-paper" : list.length ? "bg-paper-2 hover:border-ink" : "hover:border-ink",
+                        selected ? "border-accent bg-accent-soft text-accent-ink" : list.length ? "bg-surface shadow-[var(--shadow-soft)] hover:border-stone-2" : "hover:border-stone-2",
                       )}
                     >
-                      <span className={cn("text-xs font-semibold tabular-nums", isToday && !selected && "text-accent")}>{d.getDate()}</span>
+                      <span className={cn("text-xs font-semibold tabular-nums", isToday && !selected && "text-accent-ink")}>{d.getDate()}</span>
                       {list.length > 0 && (
                         <span className="absolute inset-x-1 bottom-1 flex justify-center sm:inset-x-1.5 sm:bottom-1.5">
                           <span className="hidden sm:block">
                             <EntryThumbs entry={list[0]} size="sm" />
                           </span>
-                          <span className={cn("block size-1.5 rounded-full sm:hidden", selected ? "bg-paper" : "bg-accent")} />
+                          <span className={cn("block size-1.5 rounded-full sm:hidden", selected ? "bg-accent-ink" : "bg-accent")} />
                         </span>
                       )}
                     </button>
@@ -290,11 +290,11 @@ function LookbookView() {
                 })}
               </div>
             </div>
-            <aside className="rounded-sm border border-ink p-5">
+            <aside className="rounded-lg bg-surface p-5 shadow-[var(--shadow-soft)]">
               {day ? (
                 <>
                   <p className="label text-ink-3">{fromDateKey(day).toLocaleDateString("en-GB", { weekday: "long" })}</p>
-                  <h3 className="display text-2xl">{formatDate(day, { day: "numeric", month: "long", year: "numeric" })}</h3>
+                  <h3 className="display text-xl">{formatDate(day, { day: "numeric", month: "long", year: "numeric" })}</h3>
                   {dayEntries.length ? (
                     <ul className="mt-4 flex flex-col gap-3">
                       {dayEntries.map((e) => (
@@ -324,7 +324,7 @@ function LookbookView() {
                 </>
               ) : (
                 <>
-                  <h3 className="display text-2xl">Pick a day</h3>
+                  <h3 className="display text-xl">Pick a day</h3>
                   <p className="mt-2 text-sm text-ink-3">See what you wore, or backfill a day you forgot to log.</p>
                 </>
               )}

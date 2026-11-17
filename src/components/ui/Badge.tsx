@@ -4,17 +4,17 @@ import { cn } from "./cn";
 export type BadgeTone = "neutral" | "ink" | "accent" | "sage" | "outline" | "demo";
 
 const tones: Record<BadgeTone, string> = {
-  neutral: "bg-stone/70 text-ink",
-  ink: "bg-ink text-paper",
+  neutral: "bg-paper-2 text-ink-2",
+  ink: "bg-ink/85 text-white",
   accent: "bg-accent text-white",
   sage: "bg-sage text-sage-ink",
-  outline: "border border-ink/30 text-ink",
-  demo: "bg-[repeating-linear-gradient(-45deg,#171717_0_6px,#2a2a2a_6px_12px)] text-paper",
+  outline: "border border-line bg-surface text-ink-2",
+  demo: "border border-dashed border-ink-4 bg-surface text-ink-3",
 };
 
 export function Badge({ tone = "neutral", children, className, icon }: { tone?: BadgeTone; children: ReactNode; className?: string; icon?: ReactNode }) {
   return (
-    <span className={cn("label inline-flex items-center gap-1 rounded-xs px-1.5 py-0.5 !text-[10px] !leading-4", tones[tone], className)}>
+    <span className={cn("inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-[11px] font-medium leading-4 whitespace-nowrap", tones[tone], className)}>
       {icon}
       {children}
     </span>

@@ -16,13 +16,13 @@ export function Toaster() {
           key={t.id}
           role="status"
           className={cn(
-            "pointer-events-auto flex w-full max-w-sm items-start gap-3 rounded-md px-4 py-3 shadow-xl animate-sheet-up",
-            t.tone === "error" ? "bg-accent text-white" : "bg-ink text-paper",
+            "pointer-events-auto flex w-full max-w-sm items-start gap-3 rounded-lg px-4 py-3 shadow-xl animate-sheet-up",
+            t.tone === "error" ? "bg-danger text-white" : "bg-ink text-paper",
           )}
         >
           <span className="mt-0.5 shrink-0">
             {t.tone === "success" ? (
-              <CheckCircle2 className="size-4 text-sage" />
+              <CheckCircle2 className="size-4 text-[#a9c4b2]" />
             ) : t.tone === "error" ? (
               <AlertTriangle className="size-4" />
             ) : t.tone === "accent" ? (
@@ -42,7 +42,7 @@ export function Toaster() {
                 t.action!.onClick();
                 dismiss(t.id);
               }}
-              className="label shrink-0 self-center underline underline-offset-4 hover:opacity-80"
+              className="shrink-0 self-center text-sm font-medium underline underline-offset-4 hover:opacity-80"
             >
               {t.action.label}
             </button>

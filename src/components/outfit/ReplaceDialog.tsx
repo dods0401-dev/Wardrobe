@@ -85,8 +85,8 @@ export function ReplaceDialog({
             type="button"
             onClick={() => onSlotChange(s)}
             className={cn(
-              "label h-8 shrink-0 rounded-sm border px-3",
-              s === slot ? "border-ink bg-ink text-paper" : "border-stone-2 hover:border-ink",
+              "h-8 shrink-0 rounded-full border px-3.5 text-[13px] font-medium",
+              s === slot ? "border-accent bg-accent-soft text-accent-ink" : "border-stone-2 hover:border-stone-2",
               !slots.includes(s) && s !== slot && "border-dashed",
             )}
           >
@@ -96,7 +96,7 @@ export function ReplaceDialog({
       </div>
 
       {current && (
-        <div className="mb-5 flex items-center gap-3 rounded-sm bg-paper-2 p-3">
+        <div className="mb-5 flex items-center gap-3 rounded-md bg-surface p-3 shadow-[var(--shadow-soft)]">
           <div className="size-14 shrink-0 overflow-hidden rounded-xs">
             <ItemImage item={current} />
           </div>
@@ -134,12 +134,12 @@ export function ReplaceDialog({
                 }}
                 className="group block w-full text-left"
               >
-                <div className="relative aspect-square overflow-hidden rounded-sm ring-1 ring-line transition group-hover:ring-ink">
+                <div className="relative aspect-square overflow-hidden rounded-md bg-surface shadow-[var(--shadow-soft)] transition group-hover:-translate-y-0.5">
                   <ItemImage item={alt.item} />
                   <span
                     className={cn(
-                      "label absolute right-1.5 top-1.5 rounded-xs px-1.5 py-0.5 !text-[10px]",
-                      alt.delta > 0 ? "bg-sage text-sage-ink" : alt.delta < 0 ? "bg-paper text-ink-3" : "bg-paper text-ink",
+                      "absolute right-1.5 top-1.5 rounded-full px-2 py-0.5 text-[11px] font-medium",
+                      alt.delta > 0 ? "bg-sage text-sage-ink" : "bg-paper-2 text-ink-3",
                     )}
                   >
                     {alt.delta > 0 ? "+" : ""}

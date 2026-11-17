@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight, Bookmark, Shirt, Sparkles } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Bookmark, Shirt } from "lucide-react";
 import type { Outfit } from "@/domain/types";
 import { CATEGORIES, occasionLabel, seasonLabel } from "@/domain/taxonomy";
 import { useWardrobe, todayKey, currentSeason } from "@/store/useWardrobe";
@@ -115,21 +115,18 @@ export default function HomePage() {
   return (
     <div className="mx-auto max-w-[1400px] px-4 pb-16 pt-6 sm:px-8 lg:px-12 lg:pt-10">
       {/* Greeting */}
-      <section className="flex flex-col gap-2 border-b border-ink pb-6 sm:flex-row sm:items-end sm:justify-between animate-fade-up">
+      <section className="flex flex-col gap-2 border-b border-line pb-6 sm:flex-row sm:items-end sm:justify-between animate-fade-up">
         <div>
           <p className="label flex flex-wrap items-center gap-x-3 gap-y-1 text-ink-3">
-            <span className="text-accent">●</span>
-            <span>{dateLabel}</span>
+                        <span>{dateLabel}</span>
             <span>{profile.city}</span>
             <span>{seasonLabel(season)}</span>
           </p>
-          <h1 className="display mt-3 text-[2.75rem] leading-[0.9] sm:text-display lg:text-display-lg">
-            {greeting()},
-            <br />
-            <span className="text-ink-3">{profile.name}.</span>
+          <h1 className="display mt-2 text-[2rem] leading-[1.08] sm:text-display lg:text-display-lg">
+            {greeting()}, {profile.name}
           </h1>
         </div>
-        <p className="max-w-xs text-sm leading-relaxed text-ink-2 sm:text-right">
+        <p className="max-w-xs text-sm leading-relaxed text-ink-3 sm:text-right">
           {stats.neverWorn.length > 0
             ? `${stats.neverWorn.length} pieces in your wardrobe haven't been worn yet. Let's change that.`
             : "Every piece in your wardrobe has had an outing. Nice rotation."}
@@ -140,7 +137,7 @@ export default function HomePage() {
       <section className="mt-8 grid gap-6 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] lg:gap-12" aria-labelledby="ootd">
         <div className="relative">
           {hero && pieces.length ? (
-            <Link href={`/outfits/${hero.id}`} onClick={ensureHero} className="block overflow-hidden rounded-sm" aria-label="Open outfit of the day">
+            <Link href={`/outfits/${hero.id}`} onClick={ensureHero} className="block overflow-hidden rounded-lg shadow-[var(--shadow-soft)]" aria-label="Open outfit of the day">
               <OutfitVisual outfit={hero} pieces={pieces} />
             </Link>
           ) : (
@@ -157,13 +154,13 @@ export default function HomePage() {
           {hero && (
             <div className="animate-fade-up">
               <div className="flex flex-wrap items-center gap-2">
-                <p className="label text-accent" id="ootd">
+                <p className="label text-accent-ink" id="ootd">
                   {wornTodayOutfit ? "Today's look — logged" : "Outfit of the day"}
                 </p>
                 <Badge tone="outline">{occasionLabel(hero.occasion)}</Badge>
               </div>
-              <h2 className="display mt-3 text-5xl leading-[0.9] sm:text-6xl">{hero.name}</h2>
-              <p className="mt-4 max-w-md text-[15px] leading-relaxed text-ink-2">{hero.description}</p>
+              <h2 className="display mt-2 text-3xl leading-tight sm:text-4xl">{hero.name}</h2>
+              <p className="mt-3 max-w-md text-[15px] leading-relaxed text-ink-2">{hero.description}</p>
               <ul className="mt-4 flex max-w-md flex-col gap-1.5 text-sm text-ink-2">
                 {hero.rationale.slice(0, 2).map((r) => (
                   <li key={r} className="flex gap-2">
@@ -204,27 +201,22 @@ export default function HomePage() {
           {/* Main CTA */}
           <Link
             href="/stylist"
-            className="group relative flex items-end justify-between overflow-hidden rounded-sm bg-ink p-6 text-paper sm:p-8"
+            className="group relative flex items-center justify-between gap-4 overflow-hidden rounded-lg bg-accent-soft p-6 text-ink sm:p-7"
           >
             <div>
-              <p className="label text-stone">The Stylist</p>
-              <p className="display mt-2 text-4xl leading-[0.9] sm:text-5xl">
-                Build an
-                <br />
-                outfit
-              </p>
-              <p className="mt-3 max-w-xs text-sm text-paper/70">Pick an occasion, add a brief — get looks made only from pieces you own.</p>
+              <p className="label text-accent-ink">Stylist</p>
+              <p className="display mt-1 text-2xl leading-tight sm:text-[1.75rem]">Build an outfit</p>
+              <p className="mt-2 max-w-xs text-sm text-ink-3">Pick an occasion, add a brief — get looks made only from pieces you own.</p>
             </div>
-            <span className="flex size-14 shrink-0 items-center justify-center rounded-full bg-accent transition-transform duration-300 group-hover:rotate-[-45deg]">
-              <ArrowRight className="size-6" />
+            <span className="flex size-12 shrink-0 items-center justify-center rounded-full bg-accent text-white transition-transform duration-300 group-hover:translate-x-1">
+              <ArrowRight className="size-5" />
             </span>
-            <Sparkles className="pointer-events-none absolute -right-6 -top-6 size-40 text-paper/[0.04]" />
           </Link>
         </div>
       </section>
 
       {/* Stats strip */}
-      <section className="mt-12 grid grid-cols-2 gap-6 border-y border-ink py-6 sm:grid-cols-4" aria-label="Wardrobe at a glance">
+      <section className="mt-10 grid grid-cols-2 gap-6 rounded-lg bg-surface p-6 shadow-[var(--shadow-soft)] sm:grid-cols-4" aria-label="Wardrobe at a glance">
         <Stat label="Pieces" value={stats.totalItems} sub={`${stats.availableItems} available now`} />
         <Stat label="Wears · 30 days" value={stats.wearsLast30} sub={`${stats.totalWears} logged in total`} />
         <Stat label="Utilisation" value={`${Math.round(stats.utilization * 100)}%`} sub="worn in last 90 days" tone="accent" />
@@ -237,7 +229,7 @@ export default function HomePage() {
           label="Quick access"
           title="Your wardrobe"
           action={
-            <Link href="/wardrobe" className="label inline-flex items-center gap-1 hover:text-accent">
+            <Link href="/wardrobe" className="label inline-flex items-center gap-1 hover:text-accent-ink">
               All {items.length} <ArrowUpRight className="size-3.5" />
             </Link>
           }
@@ -248,7 +240,7 @@ export default function HomePage() {
             const sample = catItems[0];
             return (
               <Link key={c.id} href={`/wardrobe?category=${c.id}`} className="group w-32 shrink-0 sm:w-auto">
-                <div className="aspect-square overflow-hidden rounded-sm ring-1 ring-line transition group-hover:ring-ink">
+                <div className="aspect-square overflow-hidden rounded-lg bg-surface shadow-[var(--shadow-soft)] transition group-hover:-translate-y-0.5">
                   {sample ? <ItemImage item={sample} /> : <div className="studio h-full w-full" />}
                 </div>
                 <p className="mt-2 text-[13px] font-semibold leading-tight">{c.plural}</p>
@@ -265,7 +257,7 @@ export default function HomePage() {
           label="Lookbook"
           title="Recently worn & saved"
           action={
-            <Link href="/lookbook" className="label inline-flex items-center gap-1 hover:text-accent">
+            <Link href="/lookbook" className="label inline-flex items-center gap-1 hover:text-accent-ink">
               Lookbook <ArrowUpRight className="size-3.5" />
             </Link>
           }
@@ -289,25 +281,25 @@ export default function HomePage() {
             <Link
               key={p.id}
               href={`/stylist?preset=${p.id}`}
-              className={`group relative flex min-h-56 flex-col justify-between overflow-hidden rounded-sm p-5 ${p.tone}`}
+              className={`group relative flex min-h-44 flex-col justify-between overflow-hidden rounded-lg p-5 ${p.tone}`}
             >
               <div className="flex items-start justify-between">
-                <span className="label">{String(i + 1).padStart(2, "0")} / Mood</span>
+                <span className="label opacity-70">Mood</span>
                 <ArrowUpRight className="size-5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
               </div>
               <div>
-                <h3 className="display text-3xl leading-[0.95]">{p.title}</h3>
+                <h3 className="display text-2xl leading-tight">{p.title}</h3>
                 <p className="mt-2 max-w-[18rem] text-sm opacity-80">{p.blurb}</p>
               </div>
             </Link>
           ))}
         </div>
 
-        <div className="mt-8 rounded-sm border border-ink p-5 sm:p-6">
+        <div className="mt-8 rounded-lg bg-surface p-5 shadow-[var(--shadow-soft)] sm:p-6">
           <div className="flex flex-col gap-1 sm:flex-row sm:items-end sm:justify-between">
             <div>
-              <p className="label text-accent">Rediscover</p>
-              <h3 className="display mt-1 text-2xl">Pieces waiting for their moment</h3>
+              <p className="label text-accent-ink">Rediscover</p>
+              <h3 className="display mt-1 text-xl">Pieces waiting for their moment</h3>
             </div>
             <Link href="/stats" className="label inline-flex items-center gap-1 text-ink-3 hover:text-ink">
               Usage stats <ArrowUpRight className="size-3.5" />
@@ -316,7 +308,7 @@ export default function HomePage() {
           <div className="no-scrollbar -mx-5 mt-5 flex gap-3 overflow-x-auto px-5 sm:mx-0 sm:grid sm:grid-cols-6 sm:px-0">
             {forgotten.map((i) => (
               <Link key={i.id} href={`/wardrobe/${i.id}`} className="group w-28 shrink-0 sm:w-auto">
-                <div className="aspect-square overflow-hidden rounded-sm ring-1 ring-line group-hover:ring-ink">
+                <div className="aspect-square overflow-hidden rounded-lg bg-paper">
                   <ItemImage item={i} />
                 </div>
                 <p className="mt-1.5 truncate text-xs font-semibold">{i.name}</p>

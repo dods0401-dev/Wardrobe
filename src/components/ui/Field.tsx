@@ -5,7 +5,7 @@ import { ChevronDown } from "lucide-react";
 import { cn } from "./cn";
 
 const control =
-  "w-full bg-paper-3 border border-stone rounded-sm px-3 text-sm text-ink placeholder:text-ink-4 transition-colors focus:border-ink focus:outline-none focus-visible:outline-none aria-[invalid=true]:border-accent";
+  "w-full bg-surface border border-line rounded-sm px-3.5 text-sm text-ink placeholder:text-ink-4 transition-colors focus:border-accent focus:ring-2 focus:ring-accent/15 focus:outline-none focus-visible:outline-none aria-[invalid=true]:border-danger";
 
 export function Field({
   label,
@@ -26,13 +26,13 @@ export function Field({
 }) {
   return (
     <div className={cn("flex flex-col gap-1.5", className)}>
-      <label htmlFor={htmlFor} className="label text-ink-3 flex items-baseline justify-between gap-2">
+      <label htmlFor={htmlFor} className="text-[13px] font-medium text-ink-2 flex items-baseline justify-between gap-2">
         <span>{label}</span>
         {optional && <span className="text-ink-4 normal-case tracking-normal font-normal text-[11px]">Optional</span>}
       </label>
       {children}
       {error ? (
-        <p className="text-xs text-accent" role="alert">
+        <p className="text-xs text-danger" role="alert">
           {error}
         </p>
       ) : hint ? (

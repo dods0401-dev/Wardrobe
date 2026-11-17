@@ -5,25 +5,26 @@ import Link from "next/link";
 import { Loader2 } from "lucide-react";
 import { cn } from "./cn";
 
-export type ButtonVariant = "primary" | "accent" | "secondary" | "ghost" | "inverse" | "danger";
+export type ButtonVariant = "primary" | "accent" | "secondary" | "ghost" | "inverse" | "danger" | "destructive";
 export type ButtonSize = "sm" | "md" | "lg";
 
 const base =
-  "inline-flex items-center justify-center gap-2 font-sans font-semibold uppercase tracking-[0.08em] transition-[background,color,border-color,transform] duration-150 active:translate-y-px disabled:opacity-45 disabled:active:translate-y-0 select-none whitespace-nowrap rounded-sm";
+  "inline-flex items-center justify-center gap-2 font-sans font-medium transition-[background,color,border-color,box-shadow,transform] duration-150 active:scale-[0.98] disabled:opacity-45 disabled:active:scale-100 select-none whitespace-nowrap rounded-full";
 
 const variants: Record<ButtonVariant, string> = {
-  primary: "bg-ink text-paper hover:bg-ink-2",
+  primary: "bg-ink text-white hover:bg-ink-2",
   accent: "bg-accent text-white hover:bg-accent-ink",
-  secondary: "border border-ink text-ink hover:bg-ink hover:text-paper",
-  ghost: "text-ink hover:bg-ink/6",
-  inverse: "bg-paper text-ink hover:bg-white",
-  danger: "border border-accent text-accent hover:bg-accent hover:text-white",
+  secondary: "bg-surface border border-stone-2 text-ink hover:border-ink-3 shadow-[var(--shadow-soft)]",
+  ghost: "text-ink-2 hover:bg-ink/5 hover:text-ink",
+  inverse: "bg-white text-ink hover:bg-paper",
+  danger: "border border-danger/50 text-danger hover:bg-danger hover:text-white",
+  destructive: "bg-danger text-white hover:brightness-95",
 };
 
 const sizes: Record<ButtonSize, string> = {
-  sm: "h-8 px-3 text-[11px]",
-  md: "h-10 px-4 text-xs",
-  lg: "h-12 px-6 text-[13px]",
+  sm: "h-8 px-3.5 text-[13px]",
+  md: "h-10 px-5 text-sm",
+  lg: "h-12 px-6 text-[15px]",
 };
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -94,11 +95,11 @@ export const IconButton = forwardRef<
       title={label}
       aria-pressed={active}
       className={cn(
-        "inline-flex items-center justify-center rounded-sm transition-colors duration-150 disabled:opacity-40",
+        "inline-flex items-center justify-center rounded-full transition-colors duration-150 disabled:opacity-40",
         size === "sm" ? "size-8" : "size-10",
-        tone === "default" && (active ? "bg-ink text-paper" : "text-ink hover:bg-ink/8"),
-        tone === "inverse" && (active ? "bg-paper text-ink" : "bg-ink/70 text-paper backdrop-blur hover:bg-ink"),
-        tone === "accent" && (active ? "bg-accent text-white" : "bg-paper/90 text-ink backdrop-blur hover:bg-paper"),
+        tone === "default" && (active ? "bg-accent-soft text-accent-ink" : "text-ink-2 hover:bg-ink/6"),
+        tone === "inverse" && (active ? "bg-white text-ink" : "bg-white/80 text-ink backdrop-blur hover:bg-white"),
+        tone === "accent" && (active ? "bg-accent text-white" : "bg-white/90 text-ink backdrop-blur hover:bg-white"),
         className,
       )}
       {...rest}

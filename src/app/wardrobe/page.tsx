@@ -3,7 +3,9 @@
 import { Suspense, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Heart, Plus, Search, SlidersHorizontal, Upload, X } from "lucide-react";
+import { Heart, LayoutGrid, Plus, Search, SlidersHorizontal, Upload, X } from "lucide-react";
+import type { Silhouette } from "@/domain/types";
+import { GarmentArt } from "@/components/garment/GarmentArt";
 import type { Category } from "@/domain/types";
 import { AVAILABILITY, CATEGORIES, COLORS, SEASONS, STYLES, availabilityLabel, categoryLabel, colorLabel, seasonLabel, styleLabel } from "@/domain/taxonomy";
 import { useWardrobe } from "@/store/useWardrobe";
@@ -21,6 +23,33 @@ import { AddItemDialog, BulkUploadDialog } from "@/components/wardrobe/ItemDialo
 import { cn } from "@/components/ui/cn";
 
 const toggle = <T,>(arr: T[], v: T) => (arr.includes(v) ? arr.filter((x) => x !== v) : [...arr, v]);
+
+const CATEGORY_ICON: Record<Category, Silhouette> = {
+  top: "tee",
+  shirt: "shirt",
+  sweatshirt: "hoodie",
+  outerwear: "coat",
+  bottom: "trousers",
+  shorts: "shorts",
+  shoes: "sneaker",
+  accessory: "tote",
+};
+
+function CategoryBubble({ label, count, selected, onClick, icon }: { label: string; count: number; selected: boolean; onClick: () => void; icon: React.ReactNode }) {
+  return (
+    <button type="button" onClick={onClick} aria-pressed={selected} aria-label={`${label} (${count})`} className="group flex w-[4.5rem] shrink-0 flex-col items-center gap-1.5">
+      <span
+        className={cn(
+          "flex size-14 items-center justify-center rounded-full bg-surface p-2.5 shadow-[var(--shadow-soft)] transition",
+          selected ? "ring-2 ring-ink" : "group-hover:-translate-y-0.5",
+        )}
+      >
+        {icon}
+      </span>
+      <span className={cn("max-w-full truncate text-xs", selected ? "font-semibold text-ink" : "text-ink-3")}>{label}</span>
+    </button>
+  );
+}
 
 function FilterPanel({ f, set }: { f: WardrobeFilters; set: (f: WardrobeFilters) => void }) {
   return (
@@ -114,7 +143,7 @@ function WardrobeView() {
             <Button variant="secondary" icon={<Upload className="size-4" />} onClick={() => setBulkOpen(true)}>
               Bulk upload
             </Button>
-            <Button icon={<Plus className="size-4" />} onClick={() => setAddOpen(true)}>
+            <Button icon={<Plus className="size-4" />} onClick={() => setAddOpen(true)} className="hidden lg:inline-flex">
               Add item
             </Button>
           </>
@@ -122,7 +151,7 @@ function WardrobeView() {
       />
 
       {/* Toolbar */}
-      <div className="sticky top-14 z-20 -mx-4 mt-6 border-b border-line bg-paper/95 px-4 pb-3 pt-3 backdrop-blur sm:-mx-8 sm:px-8 lg:top-0 lg:-mx-12 lg:px-12">
+      <div className="sticky top-14 z-20 -mx-4 mt-4 bg-paper/95 px-4 pb-3 pt-3 backdrop-blur sm:-mx-8 sm:px-8 lg:top-0 lg:-mx-12 lg:px-12">
         <div className="flex gap-2">
           <div className="flex-1">
             <Input
@@ -153,15 +182,17 @@ function WardrobeView() {
             </Select>
           </div>
         </div>
-        <div className="no-scrollbar -mx-4 mt-3 flex gap-1.5 overflow-x-auto px-4 sm:mx-0 sm:flex-wrap sm:px-0" role="group" aria-label="Category">
-          <Chip size="sm" selected={!f.categories.length} onClick={() => setF({ ...f, categories: [] })}>
-            All
-          </Chip>
+        <div className="no-scrollbar -mx-4 mt-4 flex gap-2 overflow-x-auto px-4 pb-1 sm:mx-0 sm:px-0" role="group" aria-label="Category">
+          <CategoryBubble label="All" count={items.length} selected={!f.categories.length} onClick={() => setF({ ...f, categories: [] })} icon={<LayoutGrid className="size-5 text-ink-2" strokeWidth={1.6} />} />
           {CATEGORIES.map((c) => (
-            <Chip key={c.id} size="sm" selected={f.categories.includes(c.id)} onClick={() => setF({ ...f, categories: toggle(f.categories, c.id) })}>
-              {c.plural}
-              <span className="opacity-50 tabular-nums">{items.filter((i) => i.category === c.id).length}</span>
-            </Chip>
+            <CategoryBubble
+              key={c.id}
+              label={c.plural.replace(" & ", " & ")}
+              count={items.filter((i) => i.category === c.id).length}
+              selected={f.categories.includes(c.id)}
+              onClick={() => setF({ ...f, categories: toggle(f.categories, c.id) })}
+              icon={<GarmentArt shape={CATEGORY_ICON[c.id]} main="stone" pattern="solid" shadow={false} className="h-full w-full" />}
+            />
           ))}
         </div>
         {panel && (
@@ -174,11 +205,11 @@ function WardrobeView() {
       {chips.length > 0 && (
         <div className="mt-4 flex flex-wrap items-center gap-1.5">
           {chips.map((c) => (
-            <button key={c.key} type="button" onClick={c.clear} className="label inline-flex h-7 items-center gap-1 rounded-sm bg-ink/8 px-2 hover:bg-ink/12">
+            <button key={c.key} type="button" onClick={c.clear} className="label inline-flex h-7 items-center gap-1 rounded-full bg-surface px-3 shadow-[var(--shadow-soft)] hover:bg-paper-2">
               {c.label} <X className="size-3" />
             </button>
           ))}
-          <button type="button" onClick={() => setF({ ...EMPTY_FILTERS, query: f.query, sort: f.sort })} className="label ml-1 text-accent hover:underline">
+          <button type="button" onClick={() => setF({ ...EMPTY_FILTERS, query: f.query, sort: f.sort })} className="label ml-1 text-accent-ink hover:underline">
             Clear all
           </button>
         </div>
@@ -190,19 +221,19 @@ function WardrobeView() {
       </p>
 
       {results.length ? (
-        <ul className="mt-4 grid grid-cols-2 gap-x-3 gap-y-7 sm:grid-cols-3 sm:gap-x-4 lg:grid-cols-4 xl:grid-cols-5">
+        <ul className="mt-4 grid grid-cols-2 gap-x-3 gap-y-6 sm:grid-cols-3 sm:gap-x-4 lg:grid-cols-4 xl:grid-cols-5">
           {results.map((item, idx) => {
             const u = usage[item.id];
             return (
               <li key={item.id} className="animate-fade-up" style={{ animationDelay: `${Math.min(idx, 12) * 25}ms` }}>
                 <Link href={`/wardrobe/${item.id}`} className="group block">
-                  <div className="relative aspect-[4/5] overflow-hidden rounded-sm ring-1 ring-line transition group-hover:ring-ink">
-                    <ItemImage item={item} fit="cover" className={cn("transition-transform duration-500 group-hover:scale-[1.03]", item.availability !== "available" && "opacity-55")} />
+                  <div className="relative aspect-[4/5] overflow-hidden rounded-lg bg-surface shadow-[var(--shadow-soft)] transition duration-300 group-hover:-translate-y-0.5 group-hover:shadow-md">
+                    <ItemImage item={item} fit="contain" className={cn("p-3", item.availability !== "available" && "opacity-55")} />
                     <div className="absolute left-2 top-2 flex flex-wrap gap-1">
                       {item.availability !== "available" && <Badge tone="ink">{availabilityLabel(item.availability)}</Badge>}
                       {item.image.kind === "upload" && <Badge tone="neutral">Photo</Badge>}
                     </div>
-                    {item.favorite && <Heart className="absolute right-2 top-2 size-4 fill-accent text-accent" aria-label="Favourite" />}
+                    {item.favorite && <Heart className="absolute right-2 top-2 size-4 fill-accent text-accent-ink" aria-label="Favourite" />}
                   </div>
                   <div className="mt-2 flex items-start justify-between gap-2">
                     <div className="min-w-0">
@@ -244,6 +275,16 @@ function WardrobeView() {
           }
         />
       )}
+
+      {/* Mobile floating add button */}
+      <button
+        type="button"
+        onClick={() => setAddOpen(true)}
+        aria-label="Add item"
+        className="fixed bottom-[calc(5.25rem+env(safe-area-inset-bottom))] right-4 z-30 flex size-14 items-center justify-center rounded-full bg-accent text-white shadow-lg transition active:scale-95 lg:hidden"
+      >
+        <Plus className="size-6" />
+      </button>
 
       <Modal
         open={sheet}

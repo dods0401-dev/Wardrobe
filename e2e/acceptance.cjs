@@ -205,11 +205,11 @@ async function desktop(browser) {
   check("regenerate returns new, non-repeating looks", next.iteration === 1 && next.outfitIds.every((id) => !session.outfitIds.includes(id)));
 
   // visual mode B
-  await page.getByRole("radio", { name: /AI look/ }).click();
+  await page.getByRole("radio", { name: /On model/ }).click();
   await settle(page);
-  check("AI visualization labelled DEMO", (await page.getByText("AI Visualization — Demo").count()) >= 1);
+  check("AI visualization labelled DEMO", (await page.getByText(/AI visualization · demo/i).count()) >= 1);
   await page.screenshot({ path: `${SHOTS}/d-results-ai.png` });
-  await page.getByRole("radio", { name: /Real wardrobe/ }).click();
+  await page.getByRole("radio", { name: /My pieces/ }).click();
 
   // outfit detail
   await page.goto(BASE + `/outfits/${firstId}`, { waitUntil: "networkidle" });

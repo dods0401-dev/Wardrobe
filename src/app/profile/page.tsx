@@ -17,14 +17,14 @@ import { cn } from "@/components/ui/cn";
 
 const toggle = <T,>(arr: T[], v: T) => (arr.includes(v) ? arr.filter((x) => x !== v) : [...arr, v]);
 
-const DNA_TONES = ["#171717", "#d94a38", "#b7c5a4", "#6b6a66", "#c6c1b5", "#4f5e3e", "#9a988f"];
+const DNA_TONES = ["#6f8c7b", "#a9bfae", "#c9b79c", "#8d9aab", "#d8cfc2", "#b98f7a", "#c8ccc4"];
 
 function Block({ n, title, hint, children }: { n: string; title: string; hint?: string; children: React.ReactNode }) {
   return (
-    <section className="grid gap-4 border-t border-ink py-7 md:grid-cols-[13rem_1fr] md:gap-10">
+    <section className="grid gap-4 rounded-lg bg-surface p-5 shadow-[var(--shadow-soft)] sm:p-6 md:grid-cols-[12rem_1fr] md:gap-10">
       <div>
-        <p className="label text-accent">{n}</p>
-        <h2 className="display mt-1 text-2xl leading-none">{title}</h2>
+
+        <h2 className="display text-lg leading-tight">{title}</h2>
         {hint && <p className="mt-2 text-xs leading-relaxed text-ink-3">{hint}</p>}
       </div>
       <div className="min-w-0">{children}</div>
@@ -70,30 +70,28 @@ export default function ProfilePage() {
         eyebrow="Style Profile"
         title={
           <>
-            {profile.name}’s
-            <br />
-            <span className="text-ink-3">style DNA.</span>
+            {profile.name}’s style
           </>
         }
         intro="Tell the stylist what you like. It also learns from what you save, wear, swap and dismiss."
         actions={
-          <Link href="/stats" className="label inline-flex items-center gap-1 hover:text-accent">
+          <Link href="/stats" className="label inline-flex items-center gap-1 hover:text-accent-ink">
             Style stats <ArrowUpRight className="size-3.5" />
           </Link>
         }
       />
 
       {/* Style DNA */}
-      <section className="mt-8 grid gap-8 lg:grid-cols-[1.4fr_1fr]">
-        <div>
-          <p className="label text-ink-3">Style DNA</p>
-          <p className="mt-1 text-sm text-ink-2">Blend of what you own, what you actually wear, and learned feedback.</p>
-          <div className="mt-5 flex h-16 w-full overflow-hidden rounded-sm" role="img" aria-label={dna.map((d) => `${styleLabel(d.style)} ${Math.round(d.share * 100)}%`).join(", ")}>
+      <section className="mt-6 grid gap-3 lg:grid-cols-[1.4fr_1fr]">
+        <div className="rounded-lg bg-surface p-5 shadow-[var(--shadow-soft)] sm:p-6">
+          <p className="text-sm font-semibold">Style DNA</p>
+          <p className="mt-1 text-xs text-ink-3">Blend of what you own, what you actually wear, and learned feedback.</p>
+          <div className="mt-5 flex h-4 w-full gap-[2px] overflow-hidden rounded-full" role="img" aria-label={dna.map((d) => `${styleLabel(d.style)} ${Math.round(d.share * 100)}%`).join(", ")}>
             {dna.map((d, i) => (
               <div
                 key={d.style}
                 style={{ width: `${d.share * 100}%`, background: DNA_TONES[i % DNA_TONES.length] }}
-                className="h-full border-r-2 border-paper transition-[width] duration-500 last:border-r-0"
+                className="h-full transition-[width] duration-500"
                 title={`${styleLabel(d.style)} ${Math.round(d.share * 100)}%`}
               />
             ))}
@@ -103,18 +101,18 @@ export default function ProfilePage() {
               <li key={d.style} className="flex items-baseline gap-2">
                 <span className="block size-2.5 shrink-0 translate-y-[-1px] rounded-full" style={{ background: DNA_TONES[i % DNA_TONES.length] }} />
                 <span className="text-sm">{styleLabel(d.style)}</span>
-                <span className="display ml-auto text-lg tabular-nums">{Math.round(d.share * 100)}%</span>
+                <span className="ml-auto text-sm font-semibold tabular-nums">{Math.round(d.share * 100)}%</span>
               </li>
             ))}
           </ol>
         </div>
-        <div className="rounded-sm bg-ink p-5 text-paper">
+        <div className="rounded-lg bg-surface p-5 shadow-[var(--shadow-soft)]">
           <div className="flex items-start justify-between gap-3">
             <div>
-              <p className="label text-stone">Learned from your feedback</p>
-              <p className="mt-1 text-xs text-paper/60">Likes, saves and wears push up; dismissals and swaps-out push down.</p>
+              <p className="text-sm font-semibold">Learned from your feedback</p>
+              <p className="mt-1 text-xs text-ink-3">Likes, saves and wears push up; dismissals and swaps-out push down.</p>
             </div>
-            <button type="button" onClick={() => setConfirmReset(true)} className="label inline-flex shrink-0 items-center gap-1 text-stone hover:text-paper" disabled={!learnedRows.length}>
+            <button type="button" onClick={() => setConfirmReset(true)} className="label inline-flex shrink-0 items-center gap-1 text-ink-3 hover:text-ink" disabled={!learnedRows.length}>
               <RotateCcw className="size-3" /> Reset
             </button>
           </div>
@@ -123,13 +121,13 @@ export default function ProfilePage() {
               {learnedRows.map((r) => (
                 <li key={`${r.kind}-${r.label}`} className="grid grid-cols-[5.5rem_1fr_2.5rem] items-center gap-3 text-xs">
                   <span className="truncate">
-                    <span className="text-paper/50">{r.kind} · </span>
+                    <span className="text-ink-4">{r.kind} · </span>
                     {r.label}
                   </span>
-                  <span className="relative h-1.5 rounded-full bg-paper/15">
-                    <span className="absolute left-1/2 top-0 h-full w-px bg-paper/40" />
+                  <span className="relative h-1.5 rounded-full bg-paper-2">
+                    <span className="absolute left-1/2 top-0 h-full w-px bg-ink-4" />
                     <span
-                      className={cn("absolute top-0 h-full rounded-full", r.value >= 0 ? "left-1/2 bg-sage" : "right-1/2 bg-accent")}
+                      className={cn("absolute top-0 h-full rounded-full", r.value >= 0 ? "left-1/2 bg-accent" : "right-1/2 bg-danger")}
                       style={{ width: `${Math.min(50, Math.abs(r.value) * 50)}%` }}
                     />
                   </span>
@@ -138,12 +136,12 @@ export default function ProfilePage() {
               ))}
             </ul>
           ) : (
-            <p className="mt-6 text-sm text-paper/70">Nothing learned yet. Like, save, wear or dismiss a few outfits and patterns appear here.</p>
+            <p className="mt-6 text-sm text-ink-3">Nothing learned yet. Like, save, wear or dismiss a few outfits and patterns appear here.</p>
           )}
         </div>
       </section>
 
-      <div className="mt-10">
+      <div className="mt-8 flex flex-col gap-3">
         <Block n="01" title="About you">
           <div className="grid gap-4 sm:grid-cols-3">
             <Field label="Name" htmlFor="p-name" error={nameError}>
@@ -236,7 +234,7 @@ export default function ProfilePage() {
       </div>
 
       {dirty && (
-        <div className="fixed inset-x-0 bottom-[calc(4rem+env(safe-area-inset-bottom))] z-30 border-t border-ink bg-paper/95 backdrop-blur animate-sheet-up lg:bottom-0 lg:left-[15.5rem]">
+        <div className="fixed inset-x-0 bottom-[calc(4rem+env(safe-area-inset-bottom))] z-30 border-t border-line bg-paper/90 backdrop-blur animate-sheet-up lg:bottom-0 lg:left-[15.5rem]">
           <div className="mx-auto flex max-w-[1200px] items-center justify-end gap-2 px-4 py-3 sm:px-8 lg:px-12">
             <span className="mr-auto text-sm text-ink-2">Unsaved changes</span>
             <Button variant="ghost" onClick={() => setDraft(profile)}>
