@@ -230,10 +230,10 @@ function WardrobeView() {
               <li key={item.id} className="animate-fade-up" style={{ animationDelay: `${Math.min(idx, 12) * 25}ms` }}>
                 <Link href={`/wardrobe/${item.id}`} className="group block">
                   <div className="relative aspect-[4/5] overflow-hidden rounded-lg bg-surface shadow-[var(--shadow-soft)] transition duration-300 group-hover:-translate-y-0.5 group-hover:shadow-[var(--shadow-lift)]">
-                    <ItemImage item={item} fit="contain" className={cn("p-3", item.availability !== "available" && "opacity-55")} />
+                    <ItemImage item={item} size={300} className={cn(item.image.kind === "render" && "p-3", item.availability !== "available" && "opacity-55")} />
                     <div className="absolute left-2 top-2 flex flex-wrap gap-1">
                       {item.availability !== "available" && <Badge tone="ink">{availabilityLabel(item.availability)}</Badge>}
-                      {item.image.kind === "upload" && <Badge tone="neutral">Photo</Badge>}
+                      {item.image.kind === "upload" && <Badge tone="neutral">Your photo</Badge>}
                     </div>
                     {item.favorite && <Heart className="absolute right-2 top-2 size-4 fill-accent text-accent-ink" aria-label="Favourite" />}
                   </div>

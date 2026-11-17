@@ -47,6 +47,48 @@ export function OutfitCollage({
   highlight?: OutfitSlot | null;
   onPieceClick?: (slot: OutfitSlot) => void;
 }) {
+  // With real photos, a tidy moodboard grid reads better than an overlapping flat-lay.
+  if (pieces.some((p) => p.item.image.kind !== "render")) {
+    const tops = pieces.filter((p) => ["outerwear", "layer", "base"].includes(p.slot));
+    const rest = pieces.filter((p) => !["outerwear", "layer", "base"].includes(p.slot));
+    const tile = (p: ResolvedPiece, grow: number) => {
+      const Tag = onPieceClick ? "button" : "div";
+      return (
+        <Tag
+          key={p.slot}
+          type={onPieceClick ? "button" : undefined}
+          onClick={onPieceClick ? () => onPieceClick(p.slot) : undefined}
+          aria-label={onPieceClick ? `${p.item.name} — swap` : undefined}
+          data-item-id={p.item.id}
+          style={{ flexGrow: grow }}
+          className={cn(
+            "relative min-h-0 basis-0 overflow-hidden rounded-md bg-white transition-[opacity,filter,transform] duration-300",
+            highlight && highlight !== p.slot && "opacity-35 saturate-50",
+            onPieceClick && "cursor-pointer hover:scale-[1.015]",
+          )}
+        >
+          <ItemImage item={p.item} size={320} className={p.item.image.kind === "render" ? "p-[8%]" : ""} />
+          {showMarkers && (
+            <span className="absolute left-1.5 top-1.5 flex size-5 items-center justify-center rounded-full bg-white/90 text-[10px] font-semibold text-ink-2 shadow-sm">
+              {p.index}
+            </span>
+          )}
+        </Tag>
+      );
+    };
+    const weight = (slot: OutfitSlot) => (slot === "bottom" ? 2.2 : slot === "shoes" ? 1.1 : slot === "accessory" ? 0.9 : 1);
+    return (
+      <div className={cn("relative grid aspect-[4/5] w-full grid-cols-2 gap-1.5 overflow-hidden bg-paper-2 p-1.5", className)} data-mode="collage">
+        <div className="flex min-h-0 flex-col gap-1.5">
+          {tops.map((p) => tile(p, 1))}
+        </div>
+        <div className="flex min-h-0 flex-col gap-1.5">
+          {rest.map((p) => tile(p, weight(p.slot)))}
+        </div>
+      </div>
+    );
+  }
+
   const boxes = layout(new Set(pieces.map((p) => p.slot)));
   return (
     <div className={cn("relative aspect-[4/5] w-full overflow-hidden bg-surface", className)} data-mode="collage">
@@ -61,7 +103,7 @@ export function OutfitCollage({
           zIndex: highlight === p.slot ? 20 : b.z,
           transform: b.rot ? `rotate(${b.rot}deg)` : undefined,
         };
-        const upload = p.item.image.kind === "upload";
+        const upload = p.item.image.kind !== "render";
         const Tag = onPieceClick ? "button" : "div";
         return (
           <Tag

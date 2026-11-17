@@ -247,7 +247,7 @@ Unit tests (`npm test`, 13) cover:
 | **AI generated look (mode B)** | An illustrative figure dressed in stylised versions of the outfit's garments (shape and colour only). **No image generation runs.** | Permanent "AI VISUALIZATION — DEMO" label and the caption *"Not an image of your actual garments"* |
 | **Brief understanding** | Deterministic keyword and negation parsing (e.g. "no sneakers", "tonal", "cold", "relaxed") | "Brief understood as" chips with a DEMO badge, so the user sees exactly what was parsed |
 | **"AI stylist"** | A transparent rule-based engine (above), not a machine-learning model | The UI says "scored from your wardrobe" and shows the score breakdown |
-| **Product photography** | The 47 demo items use **generated SVG product cutouts** (34 garment shapes with colour and pattern treatments), not photos. This keeps the visual treatment consistent, needs no licences and gives the clean cut-outs the collage needs. Uploaded user photos replace them per item. | Item detail notes "Generated product cutout" |
+| **Product photography** | 32 items use licensed Unsplash product photos (credited, hotlinked). The other 15 use **generated SVG product cutouts** (34 garment shapes with colour and pattern treatments). The photos illustrate each demo item; they are not the user's own clothes. User uploads replace either. | Item page shows the photo credit, or "Generated product cutout" |
 
 There is no virtual try-on, and nothing claims that real image generation or vision is running.
 
@@ -287,3 +287,49 @@ There is no virtual try-on, and nothing claims that real image generation or vis
   - Preferred fits: relaxed, regular.
 - **History:** 8 seeded looks (7 saved) and 18 wear entries spread over the past 5 weeks, relative to the date of first launch.
 - **Unisex by design.** Categories are garment-based, never gendered.
+
+## 9. Photo credits
+
+32 of the 47 demo items use product photography from [Unsplash](https://unsplash.com/?utm_source=project_wardrobe&utm_medium=referral) under the [Unsplash License](https://unsplash.com/license).
+- Images are **hotlinked** from `images.unsplash.com`, as the Unsplash API guidelines require. They are not stored in this repository.
+- Each photo is credited on its item page.
+- An item falls back to its generated cutout when the photo cannot load (for example offline).
+- The other 15 items had no suitable clean product shot, so they keep their generated cutouts.
+- Some demo attributes (name, colour) were aligned with what each photo shows. These are illustrative product images, not photos of the user's own items.
+
+To refresh or replace photos, edit `src/data/seedPhotos.ts`. The Unsplash API key is **never** committed: it is used only at authoring time.
+
+| Item | Photographer | Source |
+|---|---|---|
+| `itm_tee_black` | [Ryan Hoffman](https://unsplash.com/@ryanhoffman007?utm_source=project_wardrobe&utm_medium=referral) | [photo](https://unsplash.com/photos/black-crew-neck-t-shirt-6Nub980bI3I?utm_source=project_wardrobe&utm_medium=referral) |
+| `itm_tee_graphic` | [Ryan Hoffman](https://unsplash.com/@ryanhoffman007?utm_source=project_wardrobe&utm_medium=referral) | [photo](https://unsplash.com/photos/black-and-white-crew-neck-t-shirt-u6n1HrW0sdQ?utm_source=project_wardrobe&utm_medium=referral) |
+| `itm_polo_knit` | [Clément Vatte](https://unsplash.com/@clement_vatte?utm_source=project_wardrobe&utm_medium=referral) | [photo](https://unsplash.com/photos/gray-polo-shirt-on-blue-textile-Y-00g_VgQTc?utm_source=project_wardrobe&utm_medium=referral) |
+| `itm_knit_navy` | [Caio Coelho](https://unsplash.com/@smokthebikini?utm_source=project_wardrobe&utm_medium=referral) | [photo](https://unsplash.com/photos/black-sweater-on-white-clothes-hanger-NA9dtyWAFV4?utm_source=project_wardrobe&utm_medium=referral) |
+| `itm_knit_ecru` | [Ihor Rapita](https://unsplash.com/@rapitaihor?utm_source=project_wardrobe&utm_medium=referral) | [photo](https://unsplash.com/photos/a-white-sweater-hanging-on-a-clothes-rack-m2chM9O-ZHs?utm_source=project_wardrobe&utm_medium=referral) |
+| `itm_shirt_oxford` | [Neakasa](https://unsplash.com/@neakasa?utm_source=project_wardrobe&utm_medium=referral) | [photo](https://unsplash.com/photos/a-blue-shirt-hanging-on-a-wooden-stand-HGqPrIJAOBY?utm_source=project_wardrobe&utm_medium=referral) |
+| `itm_shirt_white` | [Nimble Made](https://unsplash.com/@nimblemade?utm_source=project_wardrobe&utm_medium=referral) | [photo](https://unsplash.com/photos/white-button-up-shirt-on-clothes-hanger-hMMXhKSZk7k?utm_source=project_wardrobe&utm_medium=referral) |
+| `itm_shirt_flannel` | [Caio Coelho](https://unsplash.com/@smokthebikini?utm_source=project_wardrobe&utm_medium=referral) | [photo](https://unsplash.com/photos/black-and-gray-checkered-dress-shirt-xFmXLq_KJxg?utm_source=project_wardrobe&utm_medium=referral) |
+| `itm_shirt_camp` | [tian dayong](https://unsplash.com/@tonnnyj?utm_source=project_wardrobe&utm_medium=referral) | [photo](https://unsplash.com/photos/a-white-shirt-hanging-on-a-clothes-line-S4f4apZd-hA?utm_source=project_wardrobe&utm_medium=referral) |
+| `itm_shirt_denim` | [Santhosh Kumar](https://unsplash.com/@shivsantos?utm_source=project_wardrobe&utm_medium=referral) | [photo](https://unsplash.com/photos/blue-heart-pattern-button-down-shirt-RqYTuWkTdEs?utm_source=project_wardrobe&utm_medium=referral) |
+| `itm_hood_grey` | [Submersible Tees](https://unsplash.com/@submersibletees?utm_source=project_wardrobe&utm_medium=referral) | [photo](https://unsplash.com/photos/a-black-jacket-with-a-zipper-SbHt5T4C1Ys?utm_source=project_wardrobe&utm_medium=referral) |
+| `itm_hood_black` | [Haryo Setyadi](https://unsplash.com/@uyk?utm_source=project_wardrobe&utm_medium=referral) | [photo](https://unsplash.com/photos/black-and-white-textile-on-white-textile-dqjGsWq2cII?utm_source=project_wardrobe&utm_medium=referral) |
+| `itm_crew_sage` | [Mediamodifier](https://unsplash.com/@mediamodifier?utm_source=project_wardrobe&utm_medium=referral) | [photo](https://unsplash.com/photos/white-crew-neck-long-sleeve-shirt-7cERndkOyDw?utm_source=project_wardrobe&utm_medium=referral) |
+| `itm_crew_navy` | [Meghna R](https://unsplash.com/@darkandflawed?utm_source=project_wardrobe&utm_medium=referral) | [photo](https://unsplash.com/photos/brown-crew-neck-shirt-on-white-table-iN-Zmxm46Oo?utm_source=project_wardrobe&utm_medium=referral) |
+| `itm_zip_olive` | [Nikola Tasic](https://unsplash.com/@tasae34?utm_source=project_wardrobe&utm_medium=referral) | [photo](https://unsplash.com/photos/a-brown-jacket-hanging-on-a-wooden-wall-gJtwWqMiyUw?utm_source=project_wardrobe&utm_medium=referral) |
+| `itm_jkt_bomber` | [Bulbul Ahmed](https://unsplash.com/@bulbul252?utm_source=project_wardrobe&utm_medium=referral) | [photo](https://unsplash.com/photos/blue-zip-up-hoodie-jacket-TcRaVI3LXds?utm_source=project_wardrobe&utm_medium=referral) |
+| `itm_jkt_trucker` | [Caio Coelho](https://unsplash.com/@smokthebikini?utm_source=project_wardrobe&utm_medium=referral) | [photo](https://unsplash.com/photos/blue-denim-button-up-jacket-QRN47la37gw?utm_source=project_wardrobe&utm_medium=referral) |
+| `itm_jeans_raw` | [TuanAnh Blue](https://unsplash.com/@blueeyeaa?utm_source=project_wardrobe&utm_medium=referral) | [photo](https://unsplash.com/photos/a-pair-of-blue-jeans-on-a-white-background-9yoXrG6Er_g?utm_source=project_wardrobe&utm_medium=referral) |
+| `itm_jeans_light` | [TuanAnh Blue](https://unsplash.com/@blueeyeaa?utm_source=project_wardrobe&utm_medium=referral) | [photo](https://unsplash.com/photos/a-pair-of-jeans-sitting-on-top-of-each-other-KVHIG5biScQ?utm_source=project_wardrobe&utm_medium=referral) |
+| `itm_jeans_black` | [TuanAnh Blue](https://unsplash.com/@blueeyeaa?utm_source=project_wardrobe&utm_medium=referral) | [photo](https://unsplash.com/photos/a-pair-of-black-jeans-sitting-on-top-of-a-white-floor-h6PKsr0wDH4?utm_source=project_wardrobe&utm_medium=referral) |
+| `itm_chino_stone` | [saeed karimi](https://unsplash.com/@saeedkarimistudio?utm_source=project_wardrobe&utm_medium=referral) | [photo](https://unsplash.com/photos/a-pair-of-glasses-a-book-and-a-pair-of-pants-on-a-table-lBi04ECUJfw?utm_source=project_wardrobe&utm_medium=referral) |
+| `itm_trouser_black` | [TuanAnh Blue](https://unsplash.com/@blueeyeaa?utm_source=project_wardrobe&utm_medium=referral) | [photo](https://unsplash.com/photos/a-pair-of-black-jeans-sitting-on-top-of-a-white-floor-h6PKsr0wDH4?utm_source=project_wardrobe&utm_medium=referral) |
+| `itm_short_denim` | [engin akyurt](https://unsplash.com/@enginakyurt?utm_source=project_wardrobe&utm_medium=referral) | [photo](https://unsplash.com/photos/blue-denim-shorts-on-white-surface-Hd4nlxLgIbA?utm_source=project_wardrobe&utm_medium=referral) |
+| `itm_shoe_white` | [SJ 📸](https://unsplash.com/@uxsj_ph?utm_source=project_wardrobe&utm_medium=referral) | [photo](https://unsplash.com/photos/a-white-sneaker-with-a-green-stripe-on-the-side--YE65Y0kgws?utm_source=project_wardrobe&utm_medium=referral) |
+| `itm_shoe_retro` | [Ervan M Wirawan](https://unsplash.com/@ervan_me?utm_source=project_wardrobe&utm_medium=referral) | [photo](https://unsplash.com/photos/gray-and-white-nike-athletic-shoe-tgdgb6yb0Qo?utm_source=project_wardrobe&utm_medium=referral) |
+| `itm_shoe_hightop` | [Maria Fernanda Pissioli](https://unsplash.com/@mxpissioli?utm_source=project_wardrobe&utm_medium=referral) | [photo](https://unsplash.com/photos/a-pair-of-black-and-white-sneakers-on-a-white-surface-sd-VmUUrdrw?utm_source=project_wardrobe&utm_medium=referral) |
+| `itm_shoe_boot` | [roberto saborizado](https://unsplash.com/@pitchu?utm_source=project_wardrobe&utm_medium=referral) | [photo](https://unsplash.com/photos/a-single-tan-leather-chelsea-boot-on-white-background-o1P_ylA6t3k?utm_source=project_wardrobe&utm_medium=referral) |
+| `itm_shoe_loafer` | [McFollis](https://unsplash.com/@thisismcfollis?utm_source=project_wardrobe&utm_medium=referral) | [photo](https://unsplash.com/photos/a-pair-of-black-embellished-loafers-on-a-light-floor-PVGwSl6Lzzs?utm_source=project_wardrobe&utm_medium=referral) |
+| `itm_shoe_derby` | [Haider Riaz](https://unsplash.com/@haider_21?utm_source=project_wardrobe&utm_medium=referral) | [photo](https://unsplash.com/photos/a-pair-of-black-shoes-on-a-white-background-1iQUP9axQ_Y?utm_source=project_wardrobe&utm_medium=referral) |
+| `itm_acc_tote` | [Brando Makes Branding](https://unsplash.com/@brandomakesbranding?utm_source=project_wardrobe&utm_medium=referral) | [photo](https://unsplash.com/photos/white-reusable-bag-on-gray-surface-smTDI-z1rlY?utm_source=project_wardrobe&utm_medium=referral) |
+| `itm_acc_belt` | [saeed karimi](https://unsplash.com/@saeedkarimistudio?utm_source=project_wardrobe&utm_medium=referral) | [photo](https://unsplash.com/photos/a-pair-of-brown-leather-belts-sitting-on-top-of-a-white-piece-of-paper-rH16wMV8ImM?utm_source=project_wardrobe&utm_medium=referral) |
+| `itm_acc_sunglasses` | [Giorgio Trovato](https://unsplash.com/@giorgiotrovato?utm_source=project_wardrobe&utm_medium=referral) | [photo](https://unsplash.com/photos/shallow-focus-photo-of-black-ray-ban-wayfarer-sunglasses-K62u25Jk6vo?utm_source=project_wardrobe&utm_medium=referral) |

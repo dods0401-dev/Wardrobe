@@ -109,7 +109,20 @@ export type Silhouette =
  * "render": the demo dataset ships generated product cutouts drawn from the item's shape & colours.
  * "upload": a user photo (stored as a compressed data URL in this prototype).
  */
-export type ItemImage = { kind: "render" } | { kind: "upload"; src: string };
+export interface PhotoCredit {
+  name: string;
+  username: string;
+  profileUrl: string;
+  photoUrl: string;
+}
+
+/**
+ * "photo": licensed product photography (Unsplash), hotlinked, with photographer credit.
+ */
+export type ItemImage =
+  | { kind: "render" }
+  | { kind: "upload"; src: string }
+  | { kind: "photo"; src: string; credit: PhotoCredit; source: "unsplash"; photoId: string };
 
 export interface WardrobeItem {
   id: string;

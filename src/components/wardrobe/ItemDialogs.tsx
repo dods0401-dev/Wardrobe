@@ -247,10 +247,10 @@ export function EditItemDialog({ item, open, onClose }: { item: WardrobeItem; op
             <ItemImage item={draft} fit="cover" />
           </div>
           <label className="label inline-flex h-8 cursor-pointer items-center justify-center gap-1.5 rounded-sm hover:bg-ink/6">
-            <Upload className="size-3.5" /> {draft.image.kind === "upload" ? "Replace photo" : "Upload photo"}
+            <Upload className="size-3.5" /> {draft.image.kind !== "render" ? "Replace photo" : "Upload photo"}
             <input type="file" accept="image/*" className="sr-only" onChange={(e) => replacePhoto(e.target.files?.[0])} />
           </label>
-          {draft.image.kind === "upload" && (
+          {draft.image.kind !== "render" && (
             <Button size="sm" variant="ghost" onClick={() => setDraft({ ...draft, image: { kind: "render" } })}>
               Use generated cutout
             </Button>

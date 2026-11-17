@@ -93,10 +93,23 @@ export default function ItemDetailPage() {
       <div className="mt-4 grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:gap-14">
         <div className="relative">
           <div className="aspect-[4/5] overflow-hidden rounded-lg bg-surface shadow-[var(--shadow-soft)]">
-            <ItemImage item={item} fit="contain" className="p-6" />
+            <ItemImage item={item} size={700} className={item.image.kind === "render" ? "p-6" : ""} />
           </div>
           {item.image.kind === "render" && (
             <p className="mt-2 text-xs text-ink-3">Generated product cutout. Upload a photo from “Edit” to replace it.</p>
+          )}
+          {item.image.kind === "photo" && (
+            <p className="mt-2 text-xs text-ink-3">
+              Photo by{" "}
+              <a className="underline underline-offset-2 hover:text-ink" href={`${item.image.credit.profileUrl}?utm_source=project_wardrobe&utm_medium=referral`} target="_blank" rel="noreferrer">
+                {item.image.credit.name}
+              </a>{" "}
+              on{" "}
+              <a className="underline underline-offset-2 hover:text-ink" href={`https://unsplash.com/?utm_source=project_wardrobe&utm_medium=referral`} target="_blank" rel="noreferrer">
+                Unsplash
+              </a>
+              . Demo product image — it illustrates the piece, it isn’t a photo of your own item.
+            </p>
           )}
         </div>
 

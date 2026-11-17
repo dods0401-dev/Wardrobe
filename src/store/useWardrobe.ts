@@ -14,7 +14,7 @@ import type {
   WardrobeItem,
   WearEntry,
 } from "@/domain/types";
-import { SEED_ITEMS } from "@/data/seedItems";
+import { SEED_ITEMS, withSeedPhoto } from "@/data/seedItems";
 import { SEED_PROFILE, buildSeedHistory } from "@/data/seedProfile";
 import { seasonForDate } from "@/domain/taxonomy";
 import { toDateKey, uid } from "@/lib/util";
@@ -206,7 +206,11 @@ export const useWardrobe = create<WardrobeState>((set, get) => {
     init: () => {
       if (get().hydrated) return;
       const { state, error } = services.persistence.load();
-      if (state) set({ ...state, hydrated: true });
+      if (state) {
+        // Upgrade untouched demo items saved before product photography was added.
+        const items = state.items.map((i) => (i.image.kind === "render" && !i.updatedAt ? withSeedPhoto(i) : i));
+        set({ ...state, items, hydrated: true });
+      }
       else set({ ...seedState(), hydrated: true });
       if (error) toast({ title: "Storage reset", description: error, tone: "error" });
     },
