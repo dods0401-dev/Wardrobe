@@ -27,6 +27,8 @@ npm run dev          # http://localhost:3000
 | `npm test` | Unit tests for the recommendation engine (Vitest) |
 | `npm run e2e` | End-to-end acceptance run (Playwright, needs a running server, see below) |
 
+**Continuous integration:** `.github/workflows/ci.yml` runs lint, unit tests, the production build and the end-to-end suite on every pull request and every push to `main`.
+
 End-to-end acceptance (47 checks across desktop and iPhone 13 viewports):
 
 ```bash
@@ -47,7 +49,7 @@ iPad Pro 11" (landscape) screenshots of the main screens are in [`docs/screensho
 ## 2. Tech & architecture
 
 **Next.js 15 (App Router) · React 19 · TypeScript · Tailwind CSS v4 · Zustand · Vitest · Playwright.**
-Fonts (Space Grotesk, Inter) are self-hosted through Fontsource, so the build needs no network access.
+Fonts (DM Sans for display, Inter for body) are self-hosted through Fontsource, so the build needs no network access.
 
 ```
 src/
@@ -275,7 +277,7 @@ There is no virtual try-on, and nothing claims that real image generation or vis
 3. **Engine v2.** Learn the scoring weights from logged interactions. Add weather from a forecast API and an LLM brief parser that outputs the same `ParsedInstructions` shape.
 4. **Real look generation.** Implement `LookVisualizer` with an image model conditioned on the user's own item photos, keeping explicit AI labelling.
 5. **Onboarding.** Add a style quiz to seed the profile, and guided wardrobe capture.
-6. **Analytics and testing.** Add product analytics on the existing interaction log and run the Playwright suite in CI.
+6. **Analytics and testing.** Add product analytics on the existing interaction log. (The Playwright suite already runs in CI.)
 7. **PWA.** Make the app installable, add offline support and a daily outfit notification.
 
 ---
