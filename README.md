@@ -6,6 +6,8 @@ A working, navigable prototype of a consumer AI personal stylist: digitise a war
 
 The working name is PROJECT WARDROBE; final naming is postponed. This is **not** a landing page or a static mock-up. Every primary action works, all screens share one state, and that state persists in the browser.
 
+> **Riprendere il lavoro / handover:** see [`docs/handover/HANDOVER.md`](docs/handover/HANDOVER.md) and the ready-to-paste prompt in [`docs/handover/PROMPT-RIPRESA.md`](docs/handover/PROMPT-RIPRESA.md). Claude sessions also load [`CLAUDE.md`](CLAUDE.md) automatically.
+
 ---
 
 ## 1. Setup
