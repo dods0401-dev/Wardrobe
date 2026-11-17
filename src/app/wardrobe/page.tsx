@@ -139,6 +139,7 @@ function WardrobeView() {
             icon={<SlidersHorizontal className="size-4" />}
             onClick={() => (window.matchMedia("(min-width: 768px)").matches ? setPanel(!panel) : setSheet(true))}
             aria-expanded={panel}
+            aria-label={extra ? `Filters, ${extra} active` : "Filters"}
           >
             <span className="hidden sm:inline">Filters</span>
             {extra > 0 && <span className="tabular-nums">{extra}</span>}

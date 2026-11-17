@@ -8,7 +8,7 @@ const { chromium, devices } = require("playwright");
   const errors = [];
   page.on("pageerror", (e) => errors.push(e.message));
   page.on("console", (m) => m.type() === "error" && errors.push(m.text()));
-  await page.goto("http://localhost:3000" + path, { waitUntil: "networkidle" });
+  await page.goto((process.env.BASE || "http://localhost:3000") + path, { waitUntil: "networkidle" });
   await page.waitForTimeout(800);
   await page.screenshot({ path: out, fullPage: full === "full" });
   const overflow = await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth);
