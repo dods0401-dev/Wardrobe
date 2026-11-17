@@ -136,6 +136,16 @@ describe("rule-based engine", () => {
   });
 });
 
+describe("anchors", () => {
+  it("every look includes the anchored piece", () => {
+    for (const id of ["itm_jkt_bomber", "itm_cargo_olive", "itm_acc_beanie", "itm_shirt_flannel"]) {
+      const r = run({ anchorItemIds: [id], season: "autumn", occasion: "casual", count: 3 });
+      expect(r.outfits.length, id).toBeGreaterThan(0);
+      for (const o of r.outfits) expect(o.pieces.map((p) => p.itemId), id).toContain(id);
+    }
+  });
+});
+
 describe("instruction parser", () => {
   it("handles negation per clause", () => {
     const p = parseInstructions("No black, but with boots and something relaxed");

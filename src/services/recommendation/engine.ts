@@ -173,6 +173,18 @@ const generate = (input: EngineInput, weights: ScoringWeights = DEFAULT_WEIGHTS)
     pools[slot] = Array.from(new Set([...top, ...required].map((x) => x.it)));
   }
 
+  // Anchors: lock the slot to the anchored piece.
+  const anchoredSlots = new Set<OutfitSlot>();
+  for (const id of request.anchorItemIds ?? []) {
+    const item = byId.get(id);
+    if (!item || item.availability !== "available") continue;
+    const slots = slotsForItem(item);
+    const slot = slots.includes("base") ? "base" : slots[0];
+    pools[slot] = [item];
+    anchoredSlots.add(slot);
+    if (slot === "layer") pools.base = pools.base.filter((b) => canLayer(b, item));
+  }
+
   const missing = (["base", "bottom", "shoes"] as OutfitSlot[]).filter((s) => pools[s].length === 0);
   if (missing.length) {
     return {
@@ -187,9 +199,10 @@ const generate = (input: EngineInput, weights: ScoringWeights = DEFAULT_WEIGHTS)
   type Candidate = { pieces: OutfitPiece[]; scored: ScoredPiece[]; score: number; sig: string };
   const candidates: Candidate[] = [];
   let evaluated = 0;
-  const outerOptions: (WardrobeItem | null)[] = [null, ...pools.outerwear];
+  const outerOptions: (WardrobeItem | null)[] = anchoredSlots.has("outerwear") ? pools.outerwear : [null, ...pools.outerwear];
   for (const base of pools.base) {
-    const layerOptions: (WardrobeItem | null)[] = [null, ...pools.layer.filter((l) => canLayer(base, l))];
+    const layers = pools.layer.filter((l) => canLayer(base, l));
+    const layerOptions: (WardrobeItem | null)[] = anchoredSlots.has("layer") ? layers : [null, ...layers];
     for (const layer of layerOptions) {
       for (const outer of outerOptions) {
         for (const bottom of pools.bottom) {
@@ -243,7 +256,8 @@ const generate = (input: EngineInput, weights: ScoringWeights = DEFAULT_WEIGHTS)
   }
 
   // 3. Accessories: finish each picked look, preferring accessories not already used in this batch.
-  if (request.includeAccessory && pools.accessory.length) {
+  const anchoredAcc = (request.anchorItemIds ?? []).some((id) => byId.get(id)?.category === "accessory");
+  if ((request.includeAccessory || anchoredAcc) && pools.accessory.length) {
     const used = new Set<string>();
     for (const c of picked) {
       let best: { item: WardrobeItem; score: number; eff: number } | null = null;
@@ -254,7 +268,7 @@ const generate = (input: EngineInput, weights: ScoringWeights = DEFAULT_WEIGHTS)
         const eff = score - (used.has(acc.id) ? 2 : 0);
         if (!best || eff > best.eff) best = { item: acc, score, eff };
       }
-      if (best && best.eff >= c.score - 1.5 && !avoid.has(signatureOf([...c.pieces, { slot: "accessory", itemId: best.item.id }]))) {
+      if (best && (anchoredAcc || best.eff >= c.score - 1.5) && !avoid.has(signatureOf([...c.pieces, { slot: "accessory", itemId: best.item.id }]))) {
         used.add(best.item.id);
         c.pieces = [...c.pieces, { slot: "accessory", itemId: best.item.id }];
         c.scored = toScored(c.pieces, byId);

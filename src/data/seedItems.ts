@@ -9,6 +9,7 @@ import type {
   StyleTag,
   WardrobeItem,
 } from "@/domain/types";
+import { SEED_PHOTOS } from "./seedPhotos";
 
 /** Default formality per silhouette (1 = very casual, 5 = formal). */
 export const SILHOUETTE_FORMALITY: Record<Silhouette, number> = {
@@ -160,4 +161,21 @@ const SPECS: SeedSpec[] = [
   { id: "itm_acc_sunglasses", name: "Acetate Sunglasses", category: "accessory", subcategory: "Sunglasses", silhouette: "sunglasses", main: "black", styles: ["contemporary", "streetwear", "minimal"], seasons: WARM, brand: "Jacques Marie Mage", material: "Acetate", created: "2025-05-10" },
 ];
 
-export const SEED_ITEMS: WardrobeItem[] = SPECS.map(make);
+/** Attaches licensed product photography (and matching attributes) to a seed item. */
+export const withSeedPhoto = (item: WardrobeItem): WardrobeItem => {
+  const entry = SEED_PHOTOS[item.id];
+  if (!entry) return item;
+  return {
+    ...item,
+    ...entry.overrides,
+    image: {
+      kind: "photo",
+      src: `${entry.photo.raw}&w=900&q=80&auto=format&fit=max`,
+      credit: entry.photo.credit,
+      source: "unsplash",
+      photoId: entry.photo.id,
+    },
+  };
+};
+
+export const SEED_ITEMS: WardrobeItem[] = SPECS.map(make).map(withSeedPhoto);

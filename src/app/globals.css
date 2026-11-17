@@ -1,0 +1,190 @@
+@import "@fontsource-variable/dm-sans";
+@import "@fontsource-variable/inter";
+@import "tailwindcss";
+
+/* ───────────────────────── DESIGN TOKENS ───────────────────────── */
+@theme {
+  /* Colour — warm, quiet, tactile */
+  --color-ink: #2b2a28;
+  --color-ink-2: #4a4844;
+  --color-ink-3: #85817a;
+  --color-ink-4: #b0aca4;
+  --color-paper: #f7f5f1;
+  --color-paper-2: #efebe5;
+  --color-paper-3: #ffffff;
+  --color-surface: #ffffff;
+  --color-stone: #e3dfd7;
+  --color-stone-2: #d6d1c7;
+  /* Primary accent: muted sage */
+  --color-accent: #4f8a6c;
+  --color-accent-2: #7fb08f;
+  --color-accent-ink: #3c6e55;
+  --color-accent-soft: #e2eee6;
+  --color-sage: #d9e8dd;
+  --color-sage-ink: #3f6650;
+  /* Warm secondary tint */
+  --color-blush: #f3e4dc;
+  --color-sand: #efe6d8;
+  /* Reserved for errors & destructive actions */
+  --color-danger: #c0583f;
+  --color-danger-soft: #f7e7e2;
+  --color-line: #e8e4dd;
+
+  /* Type */
+  --font-display: "DM Sans Variable", "DM Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Inter Variable", "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  --text-label: 0.75rem;
+  --text-label--line-height: 1rem;
+  --text-label--letter-spacing: 0.01em;
+  --text-display-sm: 1.75rem;
+  --text-display-sm--line-height: 1.1;
+  --text-display: 2.25rem;
+  --text-display--line-height: 1.08;
+  --text-display-lg: 2.75rem;
+  --text-display-lg--line-height: 1.05;
+
+  /* Radii — soft */
+  --radius-xs: 6px;
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+
+  --shadow-soft: inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 1px 2px rgba(43, 42, 40, 0.04), 0 8px 24px -12px rgba(43, 42, 40, 0.14);
+  --shadow-lift: inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 2px 4px rgba(43, 42, 40, 0.05), 0 18px 40px -18px rgba(43, 42, 40, 0.28);
+  --shadow-accent: 0 1px 0 rgba(255, 255, 255, 0.25) inset, 0 8px 20px -8px rgba(79, 138, 108, 0.55);
+
+  /* Motion */
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --animate-fade-up: fade-up 420ms var(--ease-out-quart) both;
+  --animate-fade-in: fade-in 240ms ease-out both;
+  --animate-sheet-up: sheet-up 320ms var(--ease-out-quart) both;
+  --animate-shimmer: shimmer 1.4s linear infinite;
+
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes sheet-up {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes shimmer {
+    from { background-position: -200% 0; }
+    to { background-position: 200% 0; }
+  }
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    background:
+      radial-gradient(60rem 40rem at 100% -10%, rgba(127, 176, 143, 0.16), transparent 60%),
+      radial-gradient(50rem 36rem at -10% 110%, rgba(232, 200, 180, 0.22), transparent 60%),
+      var(--color-paper);
+    background-attachment: fixed;
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  ::selection {
+    background: var(--color-accent);
+    color: white;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+  button {
+    cursor: pointer;
+  }
+  button:disabled {
+    cursor: not-allowed;
+  }
+}
+
+@layer components {
+  /* Uppercase editorial label */
+  /* Small supporting label — sentence case, quiet */
+  .label {
+    font-family: var(--font-sans);
+    font-size: var(--text-label);
+    line-height: var(--text-label--line-height);
+    letter-spacing: var(--text-label--letter-spacing);
+    font-weight: 500;
+  }
+  .display {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+  /* Studio backdrop for product cutouts */
+  .studio {
+    background: radial-gradient(120% 100% at 50% 20%, #ffffff 0%, #ffffff 55%, #f6f3ee 100%);
+  }
+  /* Frosted glass surface for bars and floating chrome */
+  .glass {
+    background: rgba(255, 255, 255, 0.72);
+    backdrop-filter: saturate(160%) blur(18px);
+    -webkit-backdrop-filter: saturate(160%) blur(18px);
+  }
+  /* Glossy accent fill */
+  .gloss-accent {
+    background: linear-gradient(180deg, var(--color-accent-2) -40%, var(--color-accent) 60%, var(--color-accent-ink) 140%);
+    box-shadow: var(--shadow-accent);
+  }
+  .gloss-ink {
+    background: linear-gradient(180deg, #4a4844 -30%, #2b2a28 60%, #1f1e1c 140%);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.12) inset, 0 8px 18px -10px rgba(20, 20, 20, 0.6);
+  }
+  .surface {
+    background: #ffffff;
+    box-shadow: var(--shadow-soft);
+  }
+  .text-gradient {
+    background: linear-gradient(100deg, var(--color-accent-ink), var(--color-accent-2));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  .grain {
+    position: relative;
+  }
+  .grain::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  }
+  .skeleton {
+    background: linear-gradient(90deg, var(--color-paper-2) 0%, var(--color-paper-3) 50%, var(--color-paper-2) 100%);
+    background-size: 200% 100%;
+    animation: var(--animate-shimmer);
+  }
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

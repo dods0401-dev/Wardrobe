@@ -109,7 +109,20 @@ export type Silhouette =
  * "render": the demo dataset ships generated product cutouts drawn from the item's shape & colours.
  * "upload": a user photo (stored as a compressed data URL in this prototype).
  */
-export type ItemImage = { kind: "render" } | { kind: "upload"; src: string };
+export interface PhotoCredit {
+  name: string;
+  username: string;
+  profileUrl: string;
+  photoUrl: string;
+}
+
+/**
+ * "photo": licensed product photography (Unsplash), hotlinked, with photographer credit.
+ */
+export type ItemImage =
+  | { kind: "render" }
+  | { kind: "upload"; src: string }
+  | { kind: "photo"; src: string; credit: PhotoCredit; source: "unsplash"; photoId: string };
 
 export interface WardrobeItem {
   id: string;
@@ -232,6 +245,8 @@ export interface StylistRequest {
   instructions: string;
   preferredColors: ColorId[];
   excludedItemIds: string[];
+  /** Optional anchor pieces every look must include ("style this piece"). */
+  anchorItemIds?: string[];
   count: number; // 3..5
   season: Season;
   includeAccessory: boolean;
@@ -242,6 +257,12 @@ export interface StylistSession {
   request: StylistRequest;
   outfitIds: string[];
   createdAt: string;
-  /** How many times the user regenerated with the same request — used as deterministic offset. */
+  /** How many times the user regenerated with the same request. */
   iteration: number;
+  /** Every outfit signature shown in this session — regenerate never repeats them. */
+  shownSignatures: string[];
+  /** What the (mock) brief parser understood, shown back to the user. */
+  understood: string[];
+  shortfall?: string;
+  evaluated: number;
 }
