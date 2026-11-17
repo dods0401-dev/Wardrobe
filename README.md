@@ -38,6 +38,8 @@ node e2e/acceptance.cjs http://localhost:3000 e2e/screenshots
 
 **Single-file HTML build:** `npm run build:html` writes `artifact/wardrobe.html`. It is the whole app in one file, using an in-memory router and all CSS and JS inlined, for hosts that serve a single page (for example a claude.ai Artifact). Hosts that block external images show the generated cutouts instead of the Unsplash photos.
 
+**Mobile HTML build:** `npm run build:mobile` also writes `artifact/wardrobe-mobile.html`. It wraps the single-file build in a mobile shell: on an iPhone the app opens full screen (and can be added to the Home Screen); on an iPad or a desktop it runs inside a phone frame (iPhone SE, iPhone 15, iPhone Pro Max or full screen), at a real phone width, so the app's own breakpoints show the mobile layout. The shell also has *Reload* and *Reset demo data* buttons, since the app's reset lives in the desktop sidebar. To wrap an existing build only: `node artifact/mobile.mjs <in.html> <out.html>`.
+
 The design-system reference lives at **`/design`**. It is not linked from the navigation.
 
 iPad Pro 11" (landscape) screenshots of the main screens are in [`docs/screenshots/ipad`](docs/screenshots/ipad).

@@ -9,3 +9,4 @@ e2e/screenshots
 test-results
 artifact/.build
 artifact/wardrobe.html
+artifact/wardrobe-mobile.html

@@ -8,11 +8,12 @@ Stato al **17 novembre 2026**. Questo documento serve per riprendere il lavoro i
 
 | Cosa | Dove |
 |---|---|
-| Codice | GitHub `dods0401-dev/Wardrobe`, ramo **`claude/hopeful-gauss-xze77g`** (il `main` è ancora vuoto) |
+| Codice | GitHub `dods0401-dev/Wardrobe`, ramo **`main`** (la PR #1 da `claude/hopeful-gauss-xze77g` è stata unita) |
 | Istruzioni automatiche per Claude | `CLAUDE.md` nella radice del repository |
 | Documentazione tecnica | `README.md`: setup, architettura, motore, funzioni simulate, limiti, crediti foto |
 | Schermate iPad | `docs/screenshots/ipad/` |
 | Versione da provare (pagina privata) | https://claude.ai/artifact/K8urR6k35NZXLPDdhurmRp |
+| Versione mobile (pagina privata, cornice iPhone su iPad, schermo intero su iPhone) | https://claude.ai/artifact/KJYyi5bGTsuWZPLL9s421f — si rigenera con `npm run build:mobile` |
 | Ambiente cloud | **"Wardrobe"** (personale): rete con `unsplash.com`, `images.unsplash.com` e `api.unsplash.com` |
 
 Tutto il lavoro è salvato su GitHub. La sessione attuale si può chiudere senza perdere nulla.
@@ -90,7 +91,7 @@ A differenza della pagina claude.ai, qui si vedono anche le foto Unsplash.
 
 ## 5. Cose aperte / prossimi passi
 
-1. **Pull request verso `main`** (vedi 2B).
+1. ~~Pull request verso `main`~~: fatta (PR #1). Le nuove sessioni partono da `main` e lavorano su un ramo `claude/<argomento>`.
 2. **Foto per i 15 capi rimasti.** Su Unsplash ci sono quasi solo foto ambientate per cappotto, piumino, blazer, cargo, joggers, pantaloni grigi, pantaloncini chino e nylon, canotta, maglia a righe, longsleeve, overshirt in velluto, cappellino e berretto. Si possono provare altre parole chiave, oppure caricare foto proprie.
 3. **Chiave Unsplash.** Non è nel repository. È stata incollata in chat: rigenerala su unsplash.com/oauth/applications prima di andare in produzione. Per i prossimi lavori aggiungila come segreto di rete dell'ambiente "Wardrobe":
    - host `api.unsplash.com`
@@ -107,5 +108,6 @@ npm run lint && npm test
 npm run dev &        # oppure npm run build && npm start
 node e2e/acceptance.cjs http://localhost:3000 e2e/screenshots
 npm run build:html   # se va aggiornata la pagina claude.ai
+npm run build:mobile # se va aggiornata la versione mobile
 ```
 Risultato atteso: 13 test unitari e 47 controlli end-to-end superati.

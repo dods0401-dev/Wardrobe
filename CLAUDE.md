@@ -22,6 +22,7 @@ npm run lint           # tsc --noEmit
 npm test               # engine unit tests (Vitest)
 npm run build          # production build
 npm run build:html     # single-file HTML build → artifact/wardrobe.html
+npm run build:mobile   # + mobile shell (phone frame / full screen) → artifact/wardrobe-mobile.html
 node e2e/acceptance.cjs http://localhost:3000 e2e/screenshots   # 47 end-to-end checks (server must be running)
 ```
 Before pushing UI changes, run `npm run lint`, `npm test` and the acceptance suite. All must pass.
@@ -50,6 +51,6 @@ All tokens live in `src/app/globals.css`.
 - **Never commit the Unsplash API key.**
 
 ## Git
-- Work branch: `claude/hopeful-gauss-xze77g`. No PR has been opened yet; open one only when the user asks.
+- Start from `main` and work on a `claude/<topic>` branch. Open a PR only when the user asks.
 - Commit messages describe the change.
 - No model names go in commits or code.
