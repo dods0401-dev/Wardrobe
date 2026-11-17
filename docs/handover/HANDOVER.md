@@ -1,6 +1,6 @@
 # Handover — PROJECT WARDROBE
 
-Stato al **17 novembre 2026**. Questo documento serve per riprendere il lavoro in una nuova sessione o in un nuovo progetto senza perdere nulla.
+Stato al **17 novembre 2026** (aggiornato dopo l'unione della PR #1 in `main`). Questo documento serve per riprendere il lavoro in una nuova sessione o in un nuovo progetto senza perdere nulla.
 
 ---
 
@@ -8,7 +8,8 @@ Stato al **17 novembre 2026**. Questo documento serve per riprendere il lavoro i
 
 | Cosa | Dove |
 |---|---|
-| Codice | GitHub `dods0401-dev/Wardrobe`, ramo **`claude/hopeful-gauss-xze77g`**; già unito su **`main`** (PR #1) |
+| Codice | GitHub `dods0401-dev/Wardrobe`. Il prototipo completo è su **`main`** (PR #1). Ramo di lavoro: **`claude/hopeful-gauss-xze77g`** |
+| Controlli automatici (CI) | `.github/workflows/ci.yml`: lint, test, build e 47 controlli end-to-end a ogni push e pull request |
 | Istruzioni automatiche per Claude | `CLAUDE.md` nella radice del repository |
 | Documentazione tecnica | `README.md`: setup, architettura, motore, funzioni simulate, limiti, crediti foto |
 | Schermate iPad | `docs/screenshots/ipad/` |
@@ -23,15 +24,15 @@ Tutto il lavoro è salvato su GitHub. La sessione attuale si può chiudere senza
 
 ### A. Nuova sessione Claude Code sullo stesso repository (consigliato)
 1. Su claude.ai/code apri una **nuova sessione**.
-2. Seleziona il repository `dods0401-dev/Wardrobe` e il ramo `claude/hopeful-gauss-xze77g`.
+2. Seleziona il repository `dods0401-dev/Wardrobe` e il ramo `main` (Claude passa poi al ramo di lavoro `claude/hopeful-gauss-xze77g`).
 3. Scegli l'ambiente **"Wardrobe"**: ha già l'accesso a Unsplash.
 4. Incolla il prompt di `docs/handover/PROMPT-RIPRESA.md`.
 
 Claude legge da solo `CLAUDE.md` e, dal prompt, questo file.
 
-### B. Portare il ramo su `main` (consigliato prima di andare oltre)
-- Chiedi a Claude "apri una pull request verso main". Poi la approvi e la unisci tu su GitHub.
-- Da quel momento le nuove sessioni possono partire da `main`.
+### B. Portare il lavoro su `main`
+- La PR #1 è già stata unita: `main` contiene il prototipo completo.
+- Per i lavori successivi chiedi a Claude "apri una pull request verso main". La CI controlla la PR; poi la approvi e la unisci tu su GitHub.
 
 ### C. Progetto su claude.ai (chat con conoscenza condivisa)
 1. Su claude.ai crea un **Progetto** "Project Wardrobe".
@@ -44,7 +45,6 @@ Le chat del Progetto servono per pianificare e discutere. Per modificare il codi
 ```bash
 git clone https://github.com/dods0401-dev/Wardrobe.git
 cd Wardrobe
-git checkout claude/hopeful-gauss-xze77g
 npm install
 npm run dev        # poi apri http://localhost:3000
 ```
@@ -53,7 +53,7 @@ Serve Node.js 20 o superiore.
 ### E. Link online stabile (per iPad e per farlo provare ad altri)
 1. Vai su vercel.com e accedi con GitHub.
 2. Scegli *Add New → Project* e importa `dods0401-dev/Wardrobe`.
-3. Seleziona il ramo (oppure `main`, dopo la PR) e premi *Deploy*.
+3. Seleziona il ramo `main` e premi *Deploy*.
 
 A differenza della pagina claude.ai, qui si vedono anche le foto Unsplash.
 
@@ -74,6 +74,8 @@ A differenza della pagina claude.ai, qui si vedono anche le foto Unsplash.
 | Restyling 2 | Stile lucido e moderno: gradienti, vetro smerigliato, ombre su più livelli |
 | Foto | 32 capi con foto Unsplash, crediti, collage a moodboard; segnalazioni di download all'API completate (32/32) |
 | HTML unico | `npm run build:html`, pubblicato come pagina claude.ai |
+| PR #1 | Tutto il lavoro unito in `main` |
+| Documenti e CI | Documenti riallineati a `main`; CI GitHub con lint, test, build ed end-to-end |
 
 ---
 
@@ -90,7 +92,7 @@ A differenza della pagina claude.ai, qui si vedono anche le foto Unsplash.
 
 ## 5. Cose aperte / prossimi passi
 
-1. **Impostare `main` come ramo predefinito** su GitHub, se non è già così (la PR #1 è stata unita).
+1. **Portare su `main` l'aggiornamento di documenti e CI** con una pull request dal ramo di lavoro.
 2. **Foto per i 15 capi rimasti.** Su Unsplash ci sono quasi solo foto ambientate per cappotto, piumino, blazer, cargo, joggers, pantaloni grigi, pantaloncini chino e nylon, canotta, maglia a righe, longsleeve, overshirt in velluto, cappellino e berretto. Si possono provare altre parole chiave, oppure caricare foto proprie.
 3. **Chiave Unsplash.** Non è nel repository. È stata incollata in chat: rigenerala su unsplash.com/oauth/applications prima di andare in produzione. Per i prossimi lavori aggiungila come segreto di rete dell'ambiente "Wardrobe":
    - host `api.unsplash.com`
@@ -108,4 +110,4 @@ npm run dev &        # oppure npm run build && npm start
 node e2e/acceptance.cjs http://localhost:3000 e2e/screenshots
 npm run build:html   # se va aggiornata la pagina claude.ai
 ```
-Risultato atteso: 13 test unitari e 47 controlli end-to-end superati.
+Risultato atteso: 13 test unitari e 47 controlli end-to-end superati. Gli stessi controlli girano nella CI di GitHub (scheda *Actions*).

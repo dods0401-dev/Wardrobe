@@ -24,7 +24,7 @@ npm run build          # production build
 npm run build:html     # single-file HTML build → artifact/wardrobe.html
 node e2e/acceptance.cjs http://localhost:3000 e2e/screenshots   # 47 end-to-end checks (server must be running)
 ```
-Before pushing UI changes, run `npm run lint`, `npm test` and the acceptance suite. All must pass.
+Before pushing UI changes, run `npm run lint`, `npm test` and the acceptance suite. All must pass, locally and in CI.
 
 ## Architecture rules
 - `src/domain/` holds pure types and rules. Do not import React or browser APIs there.
@@ -50,6 +50,8 @@ All tokens live in `src/app/globals.css`.
 - **Never commit the Unsplash API key.**
 
 ## Git
-- Work branch: `claude/hopeful-gauss-xze77g`. PR #1 has been merged into `main`; start new work from `main`.
+- `main` holds the merged prototype (PR #1).
+- Work branch: `claude/hopeful-gauss-xze77g`. Bring it up to date with `main` before starting new work. Open a PR to `main` only when the user asks.
+- CI (`.github/workflows/ci.yml`) runs lint, unit tests, the production build and the 47 end-to-end checks on every push and pull request.
 - Commit messages describe the change.
 - No model names go in commits or code.

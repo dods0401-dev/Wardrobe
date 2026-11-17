@@ -52,7 +52,7 @@ export default function DesignSystemPage() {
         <SectionHeader label="Tokens" title="Typography" />
         <div className="flex flex-col gap-4 border-y border-line py-6">
           <p className="display text-display-lg">Display XL</p>
-          <p className="display text-display">Display — Space Grotesk</p>
+          <p className="display text-display">Display — DM Sans</p>
           <p className="display text-2xl">Section heading</p>
           <p className="text-[15px] leading-relaxed text-ink-2">Body — Inter. Discover new ways to wear what you already own.</p>
           <p className="label text-ink-3">Label — uppercase, tracked 0.12em</p>
