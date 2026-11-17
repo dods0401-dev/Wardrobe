@@ -50,6 +50,6 @@ All tokens live in `src/app/globals.css`.
 - **Never commit the Unsplash API key.**
 
 ## Git
-- Work branch: `claude/hopeful-gauss-xze77g`. No PR has been opened yet; open one only when the user asks.
+- Work branch: `claude/hopeful-gauss-xze77g`. PR #1 (→ `main`) is open: https://github.com/dods0401-dev/Wardrobe/pull/1. After it is merged, start new work from `main`.
 - Commit messages describe the change.
 - No model names go in commits or code.

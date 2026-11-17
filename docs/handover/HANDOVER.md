@@ -8,7 +8,7 @@ Stato al **17 novembre 2026**. Questo documento serve per riprendere il lavoro i
 
 | Cosa | Dove |
 |---|---|
-| Codice | GitHub `dods0401-dev/Wardrobe`, ramo **`claude/hopeful-gauss-xze77g`** (il `main` è ancora vuoto) |
+| Codice | GitHub `dods0401-dev/Wardrobe`, ramo **`claude/hopeful-gauss-xze77g`**; PR #1 verso `main`: https://github.com/dods0401-dev/Wardrobe/pull/1 |
 | Istruzioni automatiche per Claude | `CLAUDE.md` nella radice del repository |
 | Documentazione tecnica | `README.md`: setup, architettura, motore, funzioni simulate, limiti, crediti foto |
 | Schermate iPad | `docs/screenshots/ipad/` |
@@ -90,7 +90,7 @@ A differenza della pagina claude.ai, qui si vedono anche le foto Unsplash.
 
 ## 5. Cose aperte / prossimi passi
 
-1. **Pull request verso `main`** (vedi 2B).
+1. **Unire la PR #1 verso `main`** e impostare `main` come ramo predefinito su GitHub.
 2. **Foto per i 15 capi rimasti.** Su Unsplash ci sono quasi solo foto ambientate per cappotto, piumino, blazer, cargo, joggers, pantaloni grigi, pantaloncini chino e nylon, canotta, maglia a righe, longsleeve, overshirt in velluto, cappellino e berretto. Si possono provare altre parole chiave, oppure caricare foto proprie.
 3. **Chiave Unsplash.** Non è nel repository. È stata incollata in chat: rigenerala su unsplash.com/oauth/applications prima di andare in produzione. Per i prossimi lavori aggiungila come segreto di rete dell'ambiente "Wardrobe":
    - host `api.unsplash.com`
