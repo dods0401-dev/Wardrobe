@@ -34,6 +34,8 @@ node e2e/acceptance.cjs http://localhost:3000 e2e/screenshots
 
 **Reset demo data:** use *Reset demo data* in the sidebar (desktop), or clear the `project-wardrobe:v1` key in localStorage.
 
+**Single-file HTML build:** `npm run build:html` writes `artifact/wardrobe.html`. It is the whole app in one file, using an in-memory router and all CSS and JS inlined, for hosts that serve a single page (for example a claude.ai Artifact). Hosts that block external images show the generated cutouts instead of the Unsplash photos.
+
 The design-system reference lives at **`/design`**. It is not linked from the navigation.
 
 iPad Pro 11" (landscape) screenshots of the main screens are in [`docs/screenshots/ipad`](docs/screenshots/ipad).
