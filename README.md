@@ -36,6 +36,8 @@ node e2e/acceptance.cjs http://localhost:3000 e2e/screenshots
 
 The design-system reference lives at **`/design`**. It is not linked from the navigation.
 
+iPad Pro 11" (landscape) screenshots of the main screens are in [`docs/screenshots/ipad`](docs/screenshots/ipad).
+
 ---
 
 ## 2. Tech & architecture
